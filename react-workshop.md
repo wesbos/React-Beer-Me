@@ -34,8 +34,6 @@ Wes Bos is a full stack developer and teacher from Hamilton, Canada. With a knac
 
 
 
-
-
 Topic: React.js
 
 Title of Workshop: React.js for Beginners
