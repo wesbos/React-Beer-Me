@@ -45,13 +45,13 @@ Once props are passed _to_ a component, we can use them access them inside that 
 We can access the props inside our render component by using `this.props.siteName`.
 
 ```html
-<Link to="/">Beer Me!</Link>
+<h1>Beer Me!</h1>
 ```
 
 turns into:
 
 ```html
-<Link to="/">{this.props.siteName}</Link>
+<h1>{this.props.siteName}</h1>
 ```
 
 A few things to note:
@@ -74,9 +74,7 @@ Let's take `<Header />` in `Header.js` for example. What props do we use there?
 const Header = React.createClass({
   render() {
     return (
-      <h1>
-        <Link to="/">{this.props.siteName}</Link>
-      </h1>
+      <h1>{this.props.siteName}</h1>
     );
   }
 });
@@ -95,9 +93,7 @@ const Header = React.createClass({
 +  },
   render() {
     return (
-      <h1>
-        <Link to="/">{this.props.siteName}</Link>
-      </h1>
+      <h1>{this.props.siteName}</h1>
     );
   }
 });

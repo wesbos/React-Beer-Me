@@ -9,7 +9,7 @@ So how do we access it inside `Beer.js`? `this.props.details`!
 First, let's import a few dependencies:
 
 ```js
-import slug from 'slug';
+import slug from 'slugify';
 import { Link } from 'react-router';
 ```
 

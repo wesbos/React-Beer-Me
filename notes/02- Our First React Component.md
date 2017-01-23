@@ -19,7 +19,7 @@ Now there are a few things we need to create a component:
 
 ```js
 import React from 'react';
-import { Link } from 'react-router';
+import { Link } from 'react-router'; // we will need this later
 ```
 
 Notice that even though we have imported React into `index.js`, we also import it in here. Modules are not global and you _must_ re-import the react library into every point that you need it. 
@@ -27,8 +27,6 @@ Notice that even though we have imported React into `index.js`, we also import i
 Then we create our component and store it in a variable. We use `React.createClass` to create the react class. 
 
 
-<div style="border-left:10px solid #ffc600; padding:20px; background:rgba(0,0,0,0.05);">
-	
 
 ### **Quick Aside: ES6 extending Classes vs React.createClass()**
 
@@ -40,11 +38,10 @@ React currently has 2 ways to create components:
 At the end of the day both ways create a component. That said, learning with **createClass** is significantly easier. While ES6 classes are most likely the way forward with React, they have a number of stumbling blocks that get in the way of learning:
 
 1. ES6 Class Syntax must first be learned
-2. No methods are automatically bound leading to a number of binding workarounds with terse syntax
+2. No methods are automatically bound leading to a number of `this` binding workarounds with terse syntax
 2. Currently JavaScript Classes do not support properties
 
-Issue #1 will soon be a non-issue. For #2 and #3, The Language is evolving to support these things and will evenutally be a non-issue as well. So createClass for now it is!
-</div>
+Issue #1 will soon be a non-issue. For #2 and #3, The Language is evolving to support these things and will eventually be a non-issue as well. So createClass for now it is!
 
 Every React component will have multiple methods that live inside it, but the one method that we absolutely need is the `render()` method. This is a pre-defined method that React looks for when it displays the content on our page. 
 
@@ -58,9 +55,7 @@ Let's type this one together to get the hang of the syntax and answer the follow
 const Header = React.createClass({
   render() {
     return (
-      <h1>
-        <Link to="/">Beer Me!</Link>
-      </h1>
+      <h1>Beer Me!</h1>
     )
   }
 });

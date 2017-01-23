@@ -143,12 +143,14 @@ Now, normally we would just render the component like this:
 **A few things to note here: **
 
 1. `<Results />` is our results component that we make
-2. `{...this.state}` take our entire state from `<Main />` and passes it down to `<Results/>`. This is called an Object Spread and is used quite a bit in React.  It's important to note that it's not ideal to pass everything down to children _unless you need it_. If you would like to cherry pick peices of state, we could pass them down like so:
+2. `{...this.state}` take our entire state from `<Main />` and passes it down to `<Results/>`. This is called an Object Spread and is used quite a bit in React.  
+3. It's important to note that it's not ideal to pass everything down to children _unless you need it_. If you would like to cherry pick pieces of state, we could pass them down like so:
 	
-	```
+```html
 	<Results beers={this.state.beers} />
-	```
+```
 
+<!-- 
 Now that the Results tag makes sense, we have another question to ask ourselves: **how do we get it to only show up on certain pages?**
 
 Well, we can use the `<Match />` component from React Router!
@@ -168,6 +170,7 @@ Then, we use the `<Match />` tag with a render function. The reason we need a re
   <Match exactly pattern="/search/:searchTerm" render={() => <Results loadBeers={this.loadBeers} {...this.state} />} />
 </div>
 ```
+-->
 
 If you look at the Results component in React dev tools, you'll see that the beers are available under props. Search for a `<Results />` component in dev tools and you'll see 
 
@@ -197,7 +200,7 @@ Then we loop over each beer and return a beer component.
 
 ```html
 <div className="beers">
-  {this.props.beers.map((details, i) => <Beer details={details} key={i}/>)}
+  {this.props.beers.map((details, i) => <Beer details={details} key={details.id}/>)}
 </div>
 ```
 
