@@ -28,10 +28,10 @@
 <p>Once props are passed <em>to</em> a component, we can use them access them inside that component. If you inspect your <code>&lt;Header/&gt;</code> component with react dev tools you should now see that the there is an object inside the component called <code>props</code>:</p>
 <p><img src="http://wes.io/fcPQ/content" alt=""></p>
 <p>We can access the props inside our render component by using <code>this.props.siteName</code>.</p>
-<pre><code class="lang-html">&lt;Link to=&quot;/&quot;&gt;Beer Me!&lt;/Link&gt;
+<pre><code class="lang-html">&lt;h1&gt;Beer Me!&lt;/h1&gt;
 </code></pre>
 <p>turns into:</p>
-<pre><code class="lang-html">&lt;Link to=&quot;/&quot;&gt;{this.props.siteName}&lt;/Link&gt;
+<pre><code class="lang-html">&lt;h1&gt;{this.props.siteName}&lt;/h1&gt;
 </code></pre>
 <p>A few things to note:</p>
 <ol>
@@ -46,9 +46,7 @@
 <pre><code class="lang-js">const Header = React.createClass({
   render() {
     return (
-      &lt;h1&gt;
-        &lt;Link to=&quot;/&quot;&gt;{this.props.siteName}&lt;/Link&gt;
-      &lt;/h1&gt;
+      &lt;h1&gt;{this.props.siteName}&lt;/h1&gt;
     );
   }
 });
@@ -62,9 +60,7 @@
 +  },
   render() {
     return (
-      &lt;h1&gt;
-        &lt;Link to=&quot;/&quot;&gt;{this.props.siteName}&lt;/Link&gt;
-      &lt;/h1&gt;
+      &lt;h1&gt;{this.props.siteName}&lt;/h1&gt;
     );
   }
 });

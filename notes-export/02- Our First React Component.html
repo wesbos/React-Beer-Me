@@ -18,29 +18,23 @@
 <li>The ability to create Links with react-router - more on this soon</li>
 </ol>
 <pre><code class="lang-js">import React from &#39;react&#39;;
-import { Link } from &#39;react-router&#39;;
+import { Link } from &#39;react-router&#39;; // we will need this later
 </code></pre>
 <p>Notice that even though we have imported React into <code>index.js</code>, we also import it in here. Modules are not global and you <em>must</em> re-import the react library into every point that you need it. </p>
 <p>Then we create our component and store it in a variable. We use <code>React.createClass</code> to create the react class. </p>
-<div style="border-left:10px solid #ffc600; padding:20px; background:rgba(0,0,0,0.05);">
-
-
-### <strong>Quick Aside: ES6 extending Classes vs React.createClass()</strong>
-
-React currently has 2 ways to create components:
-
-1. Method: <code>const Header = React.createClass()</code>
-2. ES6 Classes <code>class Header extends React.Component</code>
-
-At the end of the day both ways create a component. That said, learning with <strong>createClass</strong> is significantly easier. While ES6 classes are most likely the way forward with React, they have a number of stumbling blocks that get in the way of learning:
-
-1. ES6 Class Syntax must first be learned
-2. No methods are automatically bound leading to a number of binding workarounds with terse syntax
-2. Currently JavaScript Classes do not support properties
-
-Issue #1 will soon be a non-issue. For #2 and #3, The Language is evolving to support these things and will evenutally be a non-issue as well. So createClass for now it is!
-</div>
-
+<h3 id="-quick-aside-es6-extending-classes-vs-react-createclass-"><strong>Quick Aside: ES6 extending Classes vs React.createClass()</strong></h3>
+<p>React currently has 2 ways to create components:</p>
+<ol>
+<li>Method: <code>const Header = React.createClass()</code></li>
+<li>ES6 Classes <code>class Header extends React.Component</code></li>
+</ol>
+<p>At the end of the day both ways create a component. That said, learning with <strong>createClass</strong> is significantly easier. While ES6 classes are most likely the way forward with React, they have a number of stumbling blocks that get in the way of learning:</p>
+<ol>
+<li>ES6 Class Syntax must first be learned</li>
+<li>No methods are automatically bound leading to a number of <code>this</code> binding workarounds with terse syntax</li>
+<li>Currently JavaScript Classes do not support properties</li>
+</ol>
+<p>Issue #1 will soon be a non-issue. For #2 and #3, The Language is evolving to support these things and will eventually be a non-issue as well. So createClass for now it is!</p>
 <p>Every React component will have multiple methods that live inside it, but the one method that we absolutely need is the <code>render()</code> method. This is a pre-defined method that React looks for when it displays the content on our page. </p>
 <p>Let&#39;s type this one together to get the hang of the syntax and answer the following questions along the way:</p>
 <ol>
@@ -51,9 +45,7 @@ Issue #1 will soon be a non-issue. For #2 and #3, The Language is evolving to su
 <pre><code class="lang-js">const Header = React.createClass({
   render() {
     return (
-      &lt;h1&gt;
-        &lt;Link to=&quot;/&quot;&gt;Beer Me!&lt;/Link&gt;
-      &lt;/h1&gt;
+      &lt;h1&gt;Beer Me!&lt;/h1&gt;
     )
   }
 });

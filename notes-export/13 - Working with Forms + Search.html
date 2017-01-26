@@ -69,6 +69,19 @@
 <li>the state will be updated</li>
 <li>the new beers will be displayed</li>
 </ol>
+<h2 id="-main-main-router-bug-feature"><code>&lt;Main /&gt;</code> → <code>&lt;Main /&gt;</code> Router Bug / Feature</h2>
+<p>One bug (feature?!) that React Router 4 currently has is that it does not trigger a re-render of our <code>&lt;Main /&gt;</code> component when you search from a page a search page.  </p>
+<p>What? </p>
+<p>If we are on a page where the URL is <code>http://localhost:3000/search/angry</code></p>
+<p>And then search for <code>happy</code> which changes the url to <code>http://localhost:3000/search/happy</code></p>
+<p>This does trigger a route change, but since this is our route:</p>
+<p><code>&lt;Match pattern=&quot;/beer/:beerId/:beerSlug&quot; component={Single} /&gt;</code></p>
+<p>The &quot;Single&quot; component is already mounted. So to catch this change, we need another lifecycle method called <code>componentWillReceiveProps</code> which fires not when the component is mounted, but when it&#39;s props are updated. What props get updated? The router params!</p>
+<pre><code class="lang-js">componentWillReceiveProps(nextProps) {
+  console.log(&#39;Will receive props!&#39;);
+  this.loadBeers(nextProps.params.searchTerm);
+},
+</code></pre>
   </section>
 <style>
     .note {

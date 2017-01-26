@@ -93,22 +93,32 @@
 <p><strong>A few things to note here: </strong></p>
 <ol>
 <li><code>&lt;Results /&gt;</code> is our results component that we make</li>
-<li><p><code>{...this.state}</code> take our entire state from <code>&lt;Main /&gt;</code> and passes it down to <code>&lt;Results/&gt;</code>. This is called an Object Spread and is used quite a bit in React.  It&#39;s important to note that it&#39;s not ideal to pass everything down to children <em>unless you need it</em>. If you would like to cherry pick peices of state, we could pass them down like so:</p>
-<pre><code> &lt;Results beers={this.state.beers} /&gt;
-</code></pre></li>
+<li><code>{...this.state}</code> take our entire state from <code>&lt;Main /&gt;</code> and passes it down to <code>&lt;Results/&gt;</code>. This is called an Object Spread and is used quite a bit in React.  </li>
+<li>It&#39;s important to note that it&#39;s not ideal to pass everything down to children <em>unless you need it</em>. If you would like to cherry pick pieces of state, we could pass them down like so:</li>
 </ol>
-<p>Now that the Results tag makes sense, we have another question to ask ourselves: <strong>how do we get it to only show up on certain pages?</strong></p>
-<p>Well, we can use the <code>&lt;Match /&gt;</code> component from React Router!</p>
-<p>First import it at the top of your <code>Results.js</code> file:</p>
-<pre><code class="lang-js">import { Match } from &#39;react-router&#39;;
+<pre><code class="lang-html">    &lt;Results beers={this.state.beers} /&gt;
 </code></pre>
-<p>Then, we use the <code>&lt;Match /&gt;</code> tag with a render function. The reason we need a render function here is because we want to pass down custom props. </p>
-<pre><code class="lang-html">&lt;div className=&quot;wrapper&quot;&gt;
-  &lt;Header siteName=&quot;Beer me!&quot; /&gt;
-  &lt;Match exactly pattern=&quot;/&quot; render={() =&gt; &lt;Results loadBeers={this.loadBeers} {...this.state} /&gt;} /&gt;
-  &lt;Match exactly pattern=&quot;/search/:searchTerm&quot; render={() =&gt; &lt;Results loadBeers={this.loadBeers} {...this.state} /&gt;} /&gt;
-&lt;/div&gt;
-</code></pre>
+<!-- 
+Now that the Results tag makes sense, we have another question to ask ourselves: **how do we get it to only show up on certain pages?**
+
+Well, we can use the `<Match />` component from React Router!
+
+First import it at the top of your `Results.js` file:
+
+```js
+import { Match } from 'react-router';
+```
+
+Then, we use the `<Match />` tag with a render function. The reason we need a render function here is because we want to pass down custom props. 
+
+```html
+<div className="wrapper">
+  <Header siteName="Beer me!" />
+  <Match exactly pattern="/" render={() => <Results loadBeers={this.loadBeers} {...this.state} />} />
+  <Match exactly pattern="/search/:searchTerm" render={() => <Results loadBeers={this.loadBeers} {...this.state} />} />
+</div>
+```
+-->
 <p>If you look at the Results component in React dev tools, you&#39;ll see that the beers are available under props. Search for a <code>&lt;Results /&gt;</code> component in dev tools and you&#39;ll see </p>
 <p><img src="http://wes.io/hkVG/content" alt=""></p>
 <p><strong>Why props?</strong> When something is passed down from a parent (<code>&lt;Main/&gt;</code>) to a Child (<code>&lt;Results/&gt;</code>), it is passed down via props. So we surface it via <code>this.props.beers</code> inside the component that receives it.</p>
@@ -123,7 +133,7 @@
 </code></pre>
 <p>Then we loop over each beer and return a beer component. </p>
 <pre><code class="lang-html">&lt;div className=&quot;beers&quot;&gt;
-  {this.props.beers.map((details, i) =&gt; &lt;Beer details={details} key={i}/&gt;)}
+  {this.props.beers.map((details, i) =&gt; &lt;Beer details={details} key={details.id}/&gt;)}
 &lt;/div&gt;
 </code></pre>
 <p>A few things to note here:</p>
