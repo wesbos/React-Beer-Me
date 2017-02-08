@@ -8,7 +8,7 @@ class Search extends React.Component{
 
   handleSubmit = (e) => {
     e.preventDefault();
-    const searchTerm = this.refs.q.value;
+    const searchTerm = this.q.value;
     this.context.router.push(`/search/${searchTerm}`);
   }
 
@@ -16,7 +16,7 @@ class Search extends React.Component{
     return (
       <div className="search">
         <form onSubmit={this.handleSubmit}>
-          <input type="text" ref="q" placeholder="Hoppy, Malt, Angry, New..." />
+          <input type="text" ref={(q) => this.q = q} placeholder="Hoppy, Malt, Angry, New..." />
           <input type="submit" value="Search" />
         </form>
       </div>

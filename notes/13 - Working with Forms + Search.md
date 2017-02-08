@@ -5,13 +5,13 @@ The final piece of the puzzle is the search form. Let's start off by creating th
 ```html
 <div className="search">
   <form>
-    <input type="text" ref="q" placeholder="Hoppy, Malt, Angry, New..."/>
+    <input type="text" ref={(q) => this.q = q} placeholder="Hoppy, Malt, Angry, New..." />
     <input type="submit" value="Search"/>
   </form>
 </div>
 ```
 
-The only thing that may seem out of place here so far is the `ref="q"` — we will reference this in just a second. 
+The only thing that may seem out of place here so far is the `ref={(q) => this.q = q}` — we will reference this in just a second. 
 
 When someone submits that form, we need to:
 
@@ -31,7 +31,7 @@ So, we will modify our form tag: `<form onSubmit={this.handleSubmit}>`
 and then create the `handleSubmit` method on our Search component:
 
 ```js
-handleSubmit(e) {
+handleSubmit = (e) => {
   // 1. Stop the form from submitting
   e.preventDefault();
   // 2. Get the value of the input
@@ -43,12 +43,12 @@ handleSubmit(e) {
 
 ### Get the value of the input
 
-This is where the `ref="q"` comes in handy. Because we put a ref on the input, we can easily _reference_ that input element with `this.refs.q`. 
+This is where the `ref={(q) => this.q = q}` comes in handy. Because we put a ref on the input, we can easily _reference_ that input element with `this.q`. 
 
 So to get the value of that input:
 
 ```js
-const searchTerm = this.refs.q.value;
+const searchTerm = this.q.value;
 ```
 
 ### redirect them to `/search/whatever-they-searched-for`
@@ -68,7 +68,7 @@ contextTypes: {
 And then use it's `transitionTo` method to update the browser's URL:
 
 ```js
-this.context.router.transitionTo(`/search/${searchTerm}`);
+this.context.router.push(`/search/${searchTerm}`);
 ```
 
 
@@ -84,10 +84,10 @@ We need to modify our componetWillMount() to first check if we have a param in t
 
 ```js
 componentWillMount() {
-  console.log(`mounting`);
-  const params = this.props.params || {};
-  const searchTerm = params.searchTerm || undefined;
-  this.loadBeers(searchTerm);
+	console.log(`mounting`);
+	const params = this.props.match.params || {};
+	const searchTerm = params.searchTerm || undefined;
+	this.loadBeers(searchTerm);
 },
 ```
 
@@ -111,13 +111,13 @@ And then search for `happy` which changes the url to `http://localhost:3000/sear
 
 This does trigger a route change, but since this is our route:
 
-`<Match pattern="/beer/:beerId/:beerSlug" component={Single} />`
+`<Route pattern="/beer/:beerId/:beerSlug" component={Single} />`
 
 The "Single" component is already mounted. So to catch this change, we need another lifecycle method called `componentWillReceiveProps` which fires not when the component is mounted, but when it's props are updated. What props get updated? The router params!
 
 ```js
 componentWillReceiveProps(nextProps) {
   console.log('Will receive props!');
-  this.loadBeers(nextProps.params.searchTerm);
+  this.loadBeers(nextProps.match.params.searchTerm);
 },
 ```

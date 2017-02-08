@@ -10,7 +10,7 @@ First, let's import a few dependencies:
 
 ```js
 import slug from 'slugify';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 ```
 
 Then work through the render function together:
@@ -18,7 +18,7 @@ Then work through the render function together:
 ```html
 render() {
   const { name, labels, id } = this.props.details;
-  const image = labels ? labels.medium : 'null.jpg';
+  const image = labels ? labels.medium : 'notfound.jpg';
 
   return (
     <div className="beer">

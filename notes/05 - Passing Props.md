@@ -70,14 +70,14 @@ So, anytime you use props, your component must have propTypes.
 
 Let's take `<Header />` in `Header.js` for example. What props do we use there?
 
-```js
-const Header = React.createClass({
+```
+class Header extends React.Component {
   render() {
     return (
       <h1>{this.props.siteName}</h1>
     );
   }
-});
+};
 ```
 
 `siteName`!
@@ -86,19 +86,25 @@ And what type is it? A String!
 
 So, we can add propTypes to our component:
 
-```diff
-const Header = React.createClass({
-+  propTypes: {
-+    siteName: React.PropTypes.string.isRequired
-+  },
+```
+class Header extends React.Component {
+  
+  static propTypes = {
+    siteName: React.PropTypes.string.isRequired
+  }
+
   render() {
     return (
       <h1>{this.props.siteName}</h1>
     );
   }
-});
+};
 ```
 
+A few things:
+1. We use `static propType =` to set the property on the component. 
+2. there is no `,` after the object or method. This is part of ES6 Classes and differs from an object where you must put a `,`
+ 
 This will now error in your console if you:
 
 1) Forget to pass something

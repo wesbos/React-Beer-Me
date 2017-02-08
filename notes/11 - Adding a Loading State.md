@@ -3,8 +3,8 @@
 A common task in applications is to show a loading indicator. We can use use a boolean stored on the state of `<Main/>`. 
 
 ```diff
-getInitialState() {
-  return {
+constructor() {
+  this.state = {
     numBeers : 10,
     beers: [],
 +    loading: true
@@ -15,7 +15,7 @@ getInitialState() {
 Then update our state inside the `loadBeers` method:
 
 ```diff
-loadBeers (searchTerm = 'hops') {
+loadBeers = (searchTerm = 'hops') => {
 +  this.setState({ loading: true });
 
   // Check for beers in local storage

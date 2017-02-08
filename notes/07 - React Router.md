@@ -16,10 +16,10 @@ On every page we want to render either the `<Main></Main>` component on the Home
 
 ### Step 1: Import react-router
 
-There are a number of things we need from the `react-router` package. In `index.js`, import the following:
+There are a number of things we need from the `react-router-dom` package. In `index.js`, import the following:
 
 ```js
-import { BrowserRouter, Match } from 'react-router';
+import { BrowserRouter, Route } from 'react-router-dom';
 ```
 
 ### Step 2: Update our index.js Render
@@ -39,9 +39,9 @@ const Root = function() {
   return (
     <BrowserRouter>
       <div>
-        <Match exactly pattern="/" component={Main} />
-        <Match pattern="/search/:searchTerm" component={Main} />
-        <Match pattern="/beer/:beerId/:beerSlug" component={Single} />
+	      <Route exact path="/" component={Main} />
+	      <Route path="/search/:searchTerm" component={Main} />
+	      <Route path="/beer/:beerId/:beerSlug" component={Single} />
       </div>
     </BrowserRouter>
   );
@@ -60,20 +60,20 @@ import { render } from 'react-dom';
 import Main from './components/Main';
 import Single from './components/Single';
 
-import { BrowserRouter, Match } from 'react-router';
+import { BrowserRouter, Route } from 'react-router-dom';
 
 /* Import CSS */
 import './style.css';
 
 const Root = function() {
   return (
-    <BrowserRouter>
-      <div>
-        <Match exactly pattern="/" component={Main} />
-        <Match pattern="/search/:searchTerm" component={Main} />
-        <Match pattern="/beer/:beerId/:beerSlug" component={Single} />
-      </div>
-    </BrowserRouter>
+	<BrowserRouter>
+	  <div>
+	    <Route exact path="/" component={Main} />
+	    <Route path="/search/:searchTerm" component={Main} />
+	    <Route path="/beer/:beerId/:beerSlug" component={Single} />
+	  </div>
+	</BrowserRouter>
   );
 };
 

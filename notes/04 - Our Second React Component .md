@@ -30,7 +30,7 @@ In that file, we will need to do the same three things we do in every component:
 import React from 'react';
 import Header from './Header';
 
-const Main = React.createClass({
+class Main extends React.Component {
   render() {
     return (
       <div className="wrapper">
@@ -38,7 +38,7 @@ const Main = React.createClass({
       </div>
     )
   }
-});
+};
 
 export default Main;
 ```

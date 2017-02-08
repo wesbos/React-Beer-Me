@@ -13,16 +13,17 @@ We're going to make a simple beer counter - a button, that when clicked, will in
 ### Step 1: Set Initial State
 When a component mounts, we need what is called the initial state — what the data will start with. We can update this state or load in external data in just a second, but for now we need to declare the very first state. 
 
-This is done in the `getInitialState` lifecycle method which can be added to any component. Since our example will have state attached to the `<Main/>` component, we will add it there right above our render method.
+This is done by setting state in the classes constructor. The class constructor is a method that will run as the class is created. We can set our state in here.
 
 Let's start with 10 beer:
 
 ```js
-getInitialState() {
-  return {
-    numBeers : 10
-  }
-},
+constructor() {
+	super();
+	this.state = {
+    	numBeers : 10
+  	}
+}
 ```
 
 ### Step 2: Display The State in JSX
@@ -38,11 +39,10 @@ See how we used `{this.state.numBeers}`? Refresh your page and you should see
 
 ### Step 3: Create a method to update that number
 
-Along with the built in methods like `render` and `getInitialState`, we can create our own methods that will handle the updating of state. We will create a method on Main called `incrementBeers`: 
-
+Along with the built in methods like `render`, we can create our own methods that will handle the updating of state. We will create a method on Main called `incrementBeers`. Note how we set the instance property with the new syntax of `incrementBeers = () => {`. This allows us to reference `this` inside the method and have `this` be equal to that instance of the react component. A regular method will not be bound to the React component unless you explicitly bind it in the constructor.
 
 ```js
-  incrementBeers() {
+  incrementBeers = () => {
     // create a new upated state variable
     const beerAmount = this.state.numBeers + 1;
     // set state to that amount
@@ -73,15 +73,16 @@ That there is the key to understanding how react works. You update your data, no
 Now it's time to pull in a list of beers from our Beer API. 
 
 ### Step 1: Initial State
-We start by applying an empty array of beers to the initial state. Our `getInitialSate` should now look like this:
+We start by applying an empty array of beers to the initial state. Our `constructor` should now look like this:
 
 ```js
-getInitialState() {
-  return {
-    numBeers : 10,
-    beers: []
-  }
-},
+constructor() {
+	super();
+	this.state = {
+    	numBeers : 10,
+    	beers: []
+  	}
+}
 ```
 
 ### Step 2: Fetch JSON
@@ -94,7 +95,7 @@ We will be using the new browser api `fetch()` to go and grab this data. It work
 Again, try not to copy/paste but rather let's work through the following code ourselves:
 
 ```js
-loadBeers(searchTerm = 'hops') {
+loadBeers = (searchTerm = 'hops') => {
   fetch(`http://api.react.beer/v2/search?q=${searchTerm}&type=beer`)
   .then(data => data.json())
   .then((beers) => {
@@ -150,28 +151,6 @@ Now, normally we would just render the component like this:
 	<Results beers={this.state.beers} />
 ```
 
-<!-- 
-Now that the Results tag makes sense, we have another question to ask ourselves: **how do we get it to only show up on certain pages?**
-
-Well, we can use the `<Match />` component from React Router!
-
-First import it at the top of your `Results.js` file:
-
-```js
-import { Match } from 'react-router';
-```
-
-Then, we use the `<Match />` tag with a render function. The reason we need a render function here is because we want to pass down custom props. 
-
-```html
-<div className="wrapper">
-  <Header siteName="Beer me!" />
-  <Match exactly pattern="/" render={() => <Results loadBeers={this.loadBeers} {...this.state} />} />
-  <Match exactly pattern="/search/:searchTerm" render={() => <Results loadBeers={this.loadBeers} {...this.state} />} />
-</div>
-```
--->
-
 If you look at the Results component in React dev tools, you'll see that the beers are available under props. Search for a `<Results />` component in dev tools and you'll see 
 
 ![](http://wes.io/hkVG/content)
@@ -200,7 +179,7 @@ Then we loop over each beer and return a beer component.
 
 ```html
 <div className="beers">
-  {this.props.beers.map((details, i) => <Beer details={details} key={details.id}/>)}
+  {this.props.beers.map(details => <Beer details={details} key={details.id}/>)}
 </div>
 ```
 

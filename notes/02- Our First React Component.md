@@ -19,29 +19,19 @@ Now there are a few things we need to create a component:
 
 ```js
 import React from 'react';
-import { Link } from 'react-router'; // we will need this later
 ```
 
 Notice that even though we have imported React into `index.js`, we also import it in here. Modules are not global and you _must_ re-import the react library into every point that you need it. 
 
-Then we create our component and store it in a variable. We use `React.createClass` to create the react class. 
+Then we create our component and store it in a variable. We extend `React.Component` to create the react class here.
 
+## Quick Aside
 
+We are extending React.Component here with ES6 classes. Since ES6 classes currently fall short of a few much needed properties, we will be using some features that are "soon-to-come" to JavaScript to fill in those holes. 
 
-### **Quick Aside: ES6 extending Classes vs React.createClass()**
+The major shortcoming of ES6 classes and React is that the keyword `this` is not bound to the component instance. To get around this, we will be using [class properties](https://babeljs.io/docs/plugins/transform-class-properties/) which are not yet in the language but will be compiled down for us. I'll be sure to touch on this as we learn, but this is a heads up that you may see some JS syntax that you have never encountered before.
 
-React currently has 2 ways to create components:
-
-1. Method: `const Header = React.createClass()`
-2. ES6 Classes `class Header extends React.Component`
-
-At the end of the day both ways create a component. That said, learning with **createClass** is significantly easier. While ES6 classes are most likely the way forward with React, they have a number of stumbling blocks that get in the way of learning:
-
-1. ES6 Class Syntax must first be learned
-2. No methods are automatically bound leading to a number of `this` binding workarounds with terse syntax
-2. Currently JavaScript Classes do not support properties
-
-Issue #1 will soon be a non-issue. For #2 and #3, The Language is evolving to support these things and will eventually be a non-issue as well. So createClass for now it is!
+## Back to it
 
 Every React component will have multiple methods that live inside it, but the one method that we absolutely need is the `render()` method. This is a pre-defined method that React looks for when it displays the content on our page. 
 
@@ -52,13 +42,13 @@ Let's type this one together to get the hang of the syntax and answer the follow
 3. Why is there (parens) around everything?
 
 ```js
-const Header = React.createClass({
+class Header extends React.Component {
   render() {
     return (
       <h1>Beer Me!</h1>
     )
   }
-});
+};
 ```
 
 Finally, since we will need to import this component into other components, we need to **export it** with `export default Header`.
@@ -67,17 +57,14 @@ Our final code looks like this:
 
 ```js
 import React from 'react';
-import { Link } from 'react-router';
 
-const Header = React.createClass({
+class Header extends React.Component {
   render() {
     return (
-      <h1>
-        <Link to="/">Beer Me!</Link>
-      </h1>
+      <h1>Beer Me!</h1>
     )
   }
-});
+};
 
 export default Header;
 

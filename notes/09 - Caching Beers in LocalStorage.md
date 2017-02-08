@@ -7,7 +7,7 @@ We can store the beer data in localStorage and when someone searches for "hops" 
 In `Main.js`, above let's update our `loadBeers()` method
 
 ```diff
-loadBeers(searchTerm = 'hops') {
+loadBeers = (searchTerm = 'hops') => {
   this.<mark>setState({loading: true});</mark>
 
 +  // Check for beers in local storage

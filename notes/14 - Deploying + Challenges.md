@@ -13,7 +13,7 @@ If this is the case, we use a simple function that simply returns some JSX.
 Let's take out Beer.js component:
 
 ```js
-const Beer = React.createClass({
+class Beer extends React.Component {
   render() {
     const { name, labels, id } = this.props.details;
     const image = labels ? labels.medium : 'null.jpg';
@@ -27,7 +27,7 @@ const Beer = React.createClass({
       </div>
     );
   }
-});
+};
 ```
 
 We can convert that to a function that returns some JSX. Notice how we passed in props and replaced `this.props` with just `props`? 
@@ -59,7 +59,7 @@ const Hello = (props) => (
 )
 ```
 
-**Challenge:** Go through 
+**Challenge:** 
 
 ## Cache Single Beers
 
