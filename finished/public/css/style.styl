@@ -1,0 +1,126 @@
+yellow = #FFC425
+black = #0D181C
+red = #e13e45
+bevan = 'Bevan', cursive;
+
+
+html
+  font-size 10px
+
+body
+  font-family sans-serif
+  background yellow
+  background: linear-gradient(to bottom,  yellow 50%,darken(yellow,20%) 100%);
+  background-attachment fixed
+
+p
+  font-size 1.8rem
+  line-height 1.5
+
+a
+  color black
+
+html
+  box-sizing: border-box;
+
+*, *:before, *:after
+  box-sizing: inherit;
+
+img
+  max-width 100%
+
+h1
+  text-align center
+  font-family bevan
+  font-weight normal
+  transform rotate(-5deg) skew(-20deg)
+  margin 2rem 0 2rem 0
+  a
+    text-decoration none
+    font-size 10rem
+    text-shadow 3px 3px 0 alpha(black, 20%)
+
+.beer
+  background white
+  padding 1rem
+  border-top 1.5rem solid red
+  flex 1 0 auto
+  margin 2rem
+  overflow hidden
+  width calc(33.3% - 4rem)
+  box-shadow 0 0 10px alpha(black, 20%)
+  transition all 0.2s
+  &:hover
+    transform scale(1.05)
+    box-shadow 0 0 20px 2px alpha(black, 30%)
+  a
+    text-decoration none
+  h2
+    margin 0
+    font-size 1.5rem
+    text-align center
+    margin-bottom 2rem
+
+.beers
+  display flex
+  flex-wrap wrap
+  max-width 900px
+  margin 0 auto
+
+
+/*
+  Search
+*/
+
+.search
+  text-align center
+  max-width 500px
+  margin 2rem auto
+  form
+    display flex
+    & > *
+      flex 1
+      background white
+      border 0
+      padding 2rem
+      font-size 2rem
+      &[type="submit"]
+        flex-grow 2
+        background red
+        color white
+        text-transform uppercase
+      &[type="text"]
+        flex-grow 10
+
+/*
+  Loader
+*/
+
+.loader
+  margin 0 auto
+  text-align center
+  font-size 3rem
+  font-weight 100
+
+
+/*
+  Single Beer View
+*/
+
+.single-beer
+  max-width 500px
+  margin 0 auto
+  background white
+  padding 2rem
+  .label
+    width 100%
+  img
+    max-width 100%
+
+  h3
+    font-size 2rem
+
+.glass
+  img
+    float left
+    width 200px
