@@ -16,8 +16,8 @@
 <p>React router is just a component in itself - it watches for history changes and will render out the correct component for you.</p>
 <p>On every page we want to render either the <code>&lt;Main&gt;&lt;/Main&gt;</code> component on the Home page and search page or the <code>&lt;Single&gt;&lt;/Single&gt;</code> on the single beer page.</p>
 <h3 id="step-1-import-react-router">Step 1: Import react-router</h3>
-<p>There are a number of things we need from the <code>react-router</code> package. In <code>index.js</code>, import the following:</p>
-<pre><code class="lang-js">import { BrowserRouter, Match } from &#39;react-router&#39;;
+<p>There are a number of things we need from the <code>react-router-dom</code> package. In <code>index.js</code>, import the following:</p>
+<pre><code class="lang-js">import { BrowserRouter, Route } from &#39;react-router-dom&#39;;
 </code></pre>
 <h3 id="step-2-update-our-index-js-render">Step 2: Update our index.js Render</h3>
 <p>In <code>index.js</code> we are going to change our out render function to take the router instead of the <code>&lt;Main&gt;</code> component. </p>
@@ -29,9 +29,9 @@
   return (
     &lt;BrowserRouter&gt;
       &lt;div&gt;
-        &lt;Match exactly pattern=&quot;/&quot; component={Main} /&gt;
-        &lt;Match pattern=&quot;/search/:searchTerm&quot; component={Main} /&gt;
-        &lt;Match pattern=&quot;/beer/:beerId/:beerSlug&quot; component={Single} /&gt;
+          &lt;Route exact path=&quot;/&quot; component={Main} /&gt;
+          &lt;Route path=&quot;/search/:searchTerm&quot; component={Main} /&gt;
+          &lt;Route path=&quot;/beer/:beerId/:beerSlug&quot; component={Single} /&gt;
       &lt;/div&gt;
     &lt;/BrowserRouter&gt;
   );
@@ -45,7 +45,7 @@ import { render } from &#39;react-dom&#39;;
 import Main from &#39;./components/Main&#39;;
 import Single from &#39;./components/Single&#39;;
 
-import { BrowserRouter, Match } from &#39;react-router&#39;;
+import { BrowserRouter, Route } from &#39;react-router-dom&#39;;
 
 /* Import CSS */
 import &#39;./style.css&#39;;
@@ -54,9 +54,9 @@ const Root = function() {
   return (
     &lt;BrowserRouter&gt;
       &lt;div&gt;
-        &lt;Match exactly pattern=&quot;/&quot; component={Main} /&gt;
-        &lt;Match pattern=&quot;/search/:searchTerm&quot; component={Main} /&gt;
-        &lt;Match pattern=&quot;/beer/:beerId/:beerSlug&quot; component={Single} /&gt;
+        &lt;Route exact path=&quot;/&quot; component={Main} /&gt;
+        &lt;Route path=&quot;/search/:searchTerm&quot; component={Main} /&gt;
+        &lt;Route path=&quot;/beer/:beerId/:beerSlug&quot; component={Single} /&gt;
       &lt;/div&gt;
     &lt;/BrowserRouter&gt;
   );

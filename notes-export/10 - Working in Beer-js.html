@@ -11,12 +11,12 @@
 <p>So how do we access it inside <code>Beer.js</code>? <code>this.props.details</code>!</p>
 <p>First, let&#39;s import a few dependencies:</p>
 <pre><code class="lang-js">import slug from &#39;slugify&#39;;
-import { Link } from &#39;react-router&#39;;
+import { Link } from &#39;react-router-dom&#39;;
 </code></pre>
 <p>Then work through the render function together:</p>
 <pre><code class="lang-html">render() {
   const { name, labels, id } = this.props.details;
-  const image = labels ? labels.medium : &#39;null.jpg&#39;;
+  const image = labels ? labels.medium : &#39;notfound.jpg&#39;;
 
   return (
     &lt;div className=&quot;beer&quot;&gt;

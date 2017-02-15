@@ -15,26 +15,15 @@
 <p>Now there are a few things we need to create a component:</p>
 <ol>
 <li>React itself</li>
-<li>The ability to create Links with react-router - more on this soon</li>
 </ol>
 <pre><code class="lang-js">import React from &#39;react&#39;;
-import { Link } from &#39;react-router&#39;; // we will need this later
 </code></pre>
 <p>Notice that even though we have imported React into <code>index.js</code>, we also import it in here. Modules are not global and you <em>must</em> re-import the react library into every point that you need it. </p>
-<p>Then we create our component and store it in a variable. We use <code>React.createClass</code> to create the react class. </p>
-<h3 id="-quick-aside-es6-extending-classes-vs-react-createclass-"><strong>Quick Aside: ES6 extending Classes vs React.createClass()</strong></h3>
-<p>React currently has 2 ways to create components:</p>
-<ol>
-<li>Method: <code>const Header = React.createClass()</code></li>
-<li>ES6 Classes <code>class Header extends React.Component</code></li>
-</ol>
-<p>At the end of the day both ways create a component. That said, learning with <strong>createClass</strong> is significantly easier. While ES6 classes are most likely the way forward with React, they have a number of stumbling blocks that get in the way of learning:</p>
-<ol>
-<li>ES6 Class Syntax must first be learned</li>
-<li>No methods are automatically bound leading to a number of <code>this</code> binding workarounds with terse syntax</li>
-<li>Currently JavaScript Classes do not support properties</li>
-</ol>
-<p>Issue #1 will soon be a non-issue. For #2 and #3, The Language is evolving to support these things and will eventually be a non-issue as well. So createClass for now it is!</p>
+<p>Then we create our component and store it in a variable. We extend <code>React.Component</code> to create the react class here.</p>
+<h2 id="quick-aside">Quick Aside</h2>
+<p>We are extending React.Component here with ES6 classes. Since ES6 classes currently fall short of a few much needed properties, we will be using some features that are &quot;soon-to-come&quot; to JavaScript to fill in those holes. </p>
+<p>The major shortcoming of ES6 classes and React is that the keyword <code>this</code> is not bound to the component instance. To get around this, we will be using <a href="https://babeljs.io/docs/plugins/transform-class-properties/">class properties</a> which are not yet in the language but will be compiled down for us. I&#39;ll be sure to touch on this as we learn, but this is a heads up that you may see some JS syntax that you have never encountered before.</p>
+<h2 id="back-to-it">Back to it</h2>
 <p>Every React component will have multiple methods that live inside it, but the one method that we absolutely need is the <code>render()</code> method. This is a pre-defined method that React looks for when it displays the content on our page. </p>
 <p>Let&#39;s type this one together to get the hang of the syntax and answer the following questions along the way:</p>
 <ol>
@@ -42,28 +31,25 @@ import { Link } from &#39;react-router&#39;; // we will need this later
 <li>What is this <code>render() {}</code> business? should it not be <code>render: function() {}</code>?</li>
 <li>Why is there (parens) around everything?</li>
 </ol>
-<pre><code class="lang-js">const Header = React.createClass({
+<pre><code class="lang-js">class Header extends React.Component {
   render() {
     return (
       &lt;h1&gt;Beer Me!&lt;/h1&gt;
     )
   }
-});
+};
 </code></pre>
 <p>Finally, since we will need to import this component into other components, we need to <strong>export it</strong> with <code>export default Header</code>.</p>
 <p>Our final code looks like this:</p>
 <pre><code class="lang-js">import React from &#39;react&#39;;
-import { Link } from &#39;react-router&#39;;
 
-const Header = React.createClass({
+class Header extends React.Component {
   render() {
     return (
-      &lt;h1&gt;
-        &lt;Link to=&quot;/&quot;&gt;Beer Me!&lt;/Link&gt;
-      &lt;/h1&gt;
+      &lt;h1&gt;Beer Me!&lt;/h1&gt;
     )
   }
-});
+};
 
 export default Header;
 </code></pre>

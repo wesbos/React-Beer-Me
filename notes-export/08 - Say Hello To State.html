@@ -13,13 +13,14 @@
 <p>We&#39;re going to make a simple beer counter - a button, that when clicked, will increment the number of beers you need to buy for a party. Essentially just a button that will increment every time you click it. Very simple, but will illustrate a few core concepts that we will use for this application.</p>
 <h3 id="step-1-set-initial-state">Step 1: Set Initial State</h3>
 <p>When a component mounts, we need what is called the initial state — what the data will start with. We can update this state or load in external data in just a second, but for now we need to declare the very first state. </p>
-<p>This is done in the <code>getInitialState</code> lifecycle method which can be added to any component. Since our example will have state attached to the <code>&lt;Main/&gt;</code> component, we will add it there right above our render method.</p>
+<p>This is done by setting state in the classes constructor. The class constructor is a method that will run as the class is created. We can set our state in here.</p>
 <p>Let&#39;s start with 10 beer:</p>
-<pre><code class="lang-js">getInitialState() {
-  return {
-    numBeers : 10
-  }
-},
+<pre><code class="lang-js">constructor() {
+    super();
+    this.state = {
+        numBeers : 10
+      }
+}
 </code></pre>
 <h3 id="step-2-display-the-state-in-jsx">Step 2: Display The State in JSX</h3>
 <p>Right below the <code>&lt;Header...</code> component, create a button:</p>
@@ -28,8 +29,8 @@
 <p>See how we used <code>{this.state.numBeers}</code>? Refresh your page and you should see </p>
 <p><img src="http://wes.io/fdFt/content" alt=""></p>
 <h3 id="step-3-create-a-method-to-update-that-number">Step 3: Create a method to update that number</h3>
-<p>Along with the built in methods like <code>render</code> and <code>getInitialState</code>, we can create our own methods that will handle the updating of state. We will create a method on Main called <code>incrementBeers</code>: </p>
-<pre><code class="lang-js">  incrementBeers() {
+<p>Along with the built in methods like <code>render</code>, we can create our own methods that will handle the updating of state. We will create a method on Main called <code>incrementBeers</code>. Note how we set the instance property with the new syntax of <code>incrementBeers = () =&gt; {</code>. This allows us to reference <code>this</code> inside the method and have <code>this</code> be equal to that instance of the react component. A regular method will not be bound to the React component unless you explicitly bind it in the constructor.</p>
+<pre><code class="lang-js">  incrementBeers = () =&gt; {
     // create a new upated state variable
     const beerAmount = this.state.numBeers + 1;
     // set state to that amount
@@ -48,20 +49,21 @@
 <h2 id="updating-state-with-ajax">Updating State with Ajax</h2>
 <p>Now it&#39;s time to pull in a list of beers from our Beer API. </p>
 <h3 id="step-1-initial-state">Step 1: Initial State</h3>
-<p>We start by applying an empty array of beers to the initial state. Our <code>getInitialSate</code> should now look like this:</p>
-<pre><code class="lang-js">getInitialState() {
-  return {
-    numBeers : 10,
-    beers: []
-  }
-},
+<p>We start by applying an empty array of beers to the initial state. Our <code>constructor</code> should now look like this:</p>
+<pre><code class="lang-js">constructor() {
+    super();
+    this.state = {
+        numBeers : 10,
+        beers: []
+      }
+}
 </code></pre>
 <h3 id="step-2-fetch-json">Step 2: Fetch JSON</h3>
 <p>The endpoint we are going to hit is <a href="http://api.react.beer/v2/search?q=hops&amp;type=beer">http://api.react.beer/v2/search?q=hops&amp;type=beer</a></p>
 <p>Where the <code>q</code> param will either be <code>hops</code> by default, or something inputted by the user. Since the listing of beers will be attached to the Main component, we can create a new method called <code>loadBeers()</code> on that component. </p>
 <p>We will be using the new browser api <code>fetch()</code> to go and grab this data. It works very similar to jquery&#39;s <code>$.getJSON()</code>. </p>
 <p>Again, try not to copy/paste but rather let&#39;s work through the following code ourselves:</p>
-<pre><code class="lang-js">loadBeers(searchTerm = &#39;hops&#39;) {
+<pre><code class="lang-js">loadBeers = (searchTerm = &#39;hops&#39;) =&gt; {
   fetch(`http://api.react.beer/v2/search?q=${searchTerm}&amp;type=beer`)
   .then(data =&gt; data.json())
   .then((beers) =&gt; {
@@ -98,27 +100,6 @@
 </ol>
 <pre><code class="lang-html">    &lt;Results beers={this.state.beers} /&gt;
 </code></pre>
-<!-- 
-Now that the Results tag makes sense, we have another question to ask ourselves: **how do we get it to only show up on certain pages?**
-
-Well, we can use the `<Match />` component from React Router!
-
-First import it at the top of your `Results.js` file:
-
-```js
-import { Match } from 'react-router';
-```
-
-Then, we use the `<Match />` tag with a render function. The reason we need a render function here is because we want to pass down custom props. 
-
-```html
-<div className="wrapper">
-  <Header siteName="Beer me!" />
-  <Match exactly pattern="/" render={() => <Results loadBeers={this.loadBeers} {...this.state} />} />
-  <Match exactly pattern="/search/:searchTerm" render={() => <Results loadBeers={this.loadBeers} {...this.state} />} />
-</div>
-```
--->
 <p>If you look at the Results component in React dev tools, you&#39;ll see that the beers are available under props. Search for a <code>&lt;Results /&gt;</code> component in dev tools and you&#39;ll see </p>
 <p><img src="http://wes.io/hkVG/content" alt=""></p>
 <p><strong>Why props?</strong> When something is passed down from a parent (<code>&lt;Main/&gt;</code>) to a Child (<code>&lt;Results/&gt;</code>), it is passed down via props. So we surface it via <code>this.props.beers</code> inside the component that receives it.</p>
@@ -133,7 +114,7 @@ Then, we use the `<Match />` tag with a render function. The reason we need a re
 </code></pre>
 <p>Then we loop over each beer and return a beer component. </p>
 <pre><code class="lang-html">&lt;div className=&quot;beers&quot;&gt;
-  {this.props.beers.map((details, i) =&gt; &lt;Beer details={details} key={details.id}/&gt;)}
+  {this.props.beers.map(details =&gt; &lt;Beer details={details} key={details.id}/&gt;)}
 &lt;/div&gt;
 </code></pre>
 <p>A few things to note here:</p>

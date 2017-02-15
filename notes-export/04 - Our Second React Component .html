@@ -30,7 +30,7 @@
 <pre><code>import React from &#39;react&#39;;
 import Header from &#39;./Header&#39;;
 
-const Main = React.createClass({
+class Main extends React.Component {
   render() {
     return (
       &lt;div className=&quot;wrapper&quot;&gt;
@@ -38,7 +38,7 @@ const Main = React.createClass({
       &lt;/div&gt;
     )
   }
-});
+};
 
 export default Main;
 </code></pre><p>Now in <code>index.js</code> import Main: <code>import Main from &#39;./components/Main&#39;;</code> and switch out <code>&lt;Header/&gt;</code> with <code>&lt;Main/&gt;</code>. </p>

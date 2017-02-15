@@ -43,28 +43,33 @@
 <p>PropTypes will check that the necessary data, and the type of data being passed to the component is done correctly. </p>
 <p>So, anytime you use props, your component must have propTypes. </p>
 <p>Let&#39;s take <code>&lt;Header /&gt;</code> in <code>Header.js</code> for example. What props do we use there?</p>
-<pre><code class="lang-js">const Header = React.createClass({
+<pre><code>class Header extends React.Component {
   render() {
     return (
       &lt;h1&gt;{this.props.siteName}&lt;/h1&gt;
     );
   }
-});
-</code></pre>
-<p><code>siteName</code>!</p>
+};
+</code></pre><p><code>siteName</code>!</p>
 <p>And what type is it? A String!</p>
 <p>So, we can add propTypes to our component:</p>
-<pre><code class="lang-diff">const Header = React.createClass({
-+  propTypes: {
-+    siteName: React.PropTypes.string.isRequired
-+  },
+<pre><code>class Header extends React.Component {
+
+  static propTypes = {
+    siteName: React.PropTypes.string.isRequired
+  }
+
   render() {
     return (
       &lt;h1&gt;{this.props.siteName}&lt;/h1&gt;
     );
   }
-});
-</code></pre>
+};
+</code></pre><p>A few things:</p>
+<ol>
+<li>We use <code>static propType =</code> to set the property on the component. </li>
+<li>there is no <code>,</code> after the object or method. This is part of ES6 Classes and differs from an object where you must put a <code>,</code></li>
+</ol>
 <p>This will now error in your console if you:</p>
 <p>1) Forget to pass something
 2) Pass a number, boolean, function or object. </p>

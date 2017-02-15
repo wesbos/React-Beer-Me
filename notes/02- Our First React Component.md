@@ -15,7 +15,6 @@ So in a folder named `components`, create `components/Header.js`.
 Now there are a few things we need to create a component:
 
 1. React itself
-2. The ability to create Links with react-router - more on this soon
 
 ```js
 import React from 'react';

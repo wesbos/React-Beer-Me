@@ -12,7 +12,7 @@
 <p>Sometimes we have components that <em>only include a render()</em>. There are no custom methods, no lifecycle hooks, though they may have propTypes.</p>
 <p>If this is the case, we use a simple function that simply returns some JSX.</p>
 <p>Let&#39;s take out Beer.js component:</p>
-<pre><code class="lang-js">const Beer = React.createClass({
+<pre><code class="lang-js">class Beer extends React.Component {
   render() {
     const { name, labels, id } = this.props.details;
     const image = labels ? labels.medium : &#39;null.jpg&#39;;
@@ -26,7 +26,7 @@
       &lt;/div&gt;
     );
   }
-});
+};
 </code></pre>
 <p>We can convert that to a function that returns some JSX. Notice how we passed in props and replaced <code>this.props</code> with just <code>props</code>? </p>
 <pre><code class="lang-js">const Beer = function(props) {
@@ -51,7 +51,7 @@
     &lt;/div&gt;
 )
 </code></pre>
-<p><strong>Challenge:</strong> Go through </p>
+<p><strong>Challenge:</strong> </p>
 <h2 id="cache-single-beers">Cache Single Beers</h2>
 <p>Can you update the <code>Single.js</code> file to cache the single beer in localStorage? If I visit the same beer page twice, it should fetch it once.</p>
 <h2 id="modify-it-make-it-your-own">Modify It - Make it your own</h2>
