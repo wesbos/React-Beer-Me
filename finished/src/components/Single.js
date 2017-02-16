@@ -12,7 +12,7 @@ class Single extends React.Component {
     params: React.PropTypes.object
   }
 
-  componentWillMount = ()  => {
+  componentWillMount() {
     console.log(`searching for ${this.props.match.params.beerId}`);
     this.loadBeer(this.props.match.params.beerId);
   }

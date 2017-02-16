@@ -15,6 +15,7 @@ class Main extends React.Component {
 
   componentWillMount() {
     console.log(`mounting`);
+    console.log(this);
     const params = this.props.match.params || {};
     const searchTerm = params.searchTerm || undefined;
     this.loadBeers(searchTerm);
@@ -31,17 +32,17 @@ class Main extends React.Component {
 
     // Check for beers in local storage
     const localStorageBeers = localStorage.getItem(`search-${searchTerm}`);
-    if (localStorageBeers) {
-      const localBeers = JSON.parse(localStorageBeers);
-      this.setState({ beers: localBeers, loading: false });
-      return; // stop before fetch happens!
-    }
+    // if (localStorageBeers) {
+    //   const localBeers = JSON.parse(localStorageBeers);
+    //   this.setState({ beers: localBeers, loading: false });
+    //   return; // stop before fetch happens!
+    // }
 
     fetch(`http://api.react.beer/v2/search?q=${searchTerm}&type=beer`)
     .then(data => data.json())
     .then((data) => {
       // filter for beers with images
-      const beers = data.beers || [];
+      const beers = data.data || [];
       const filteredBeers = beers.filter(beer => !!beer.labels);
       this.setState({ beers: filteredBeers, loading: false });
       // save to local storage in case we search for this again
