@@ -1,6 +1,6 @@
 # React Workshop
 
-Hey Everyone - Wes here. I'll be your instructor for the CSS react workshop. I need you to do a few things before you come to the workshop.
+Hey Everyone - Wes here. I'll be your instructor for the react workshop. I need you to do a few things before you come to the workshop.
 
 ## Getting Started
 
