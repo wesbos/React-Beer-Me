@@ -14,7 +14,7 @@
   &lt;/form&gt;
 &lt;/div&gt;
 </code></pre>
-<p>The only thing that may seem out of place here so far is the <code>ref={(q) =&gt; this.q = q}</code> — we will reference this in just a second. </p>
+<p>The only thing that may seem out of place here so far is the <code>ref={(q) =&gt; this.q = q}</code> — we will reference this in just a second.</p>
 <p>When someone submits that form, we need to:</p>
 <ol>
 <li>Stop the form from submitting</li>
@@ -23,7 +23,7 @@
 </ol>
 <p>Let&#39;s take these three things and tackle them step by step:</p>
 <h3 id="stop-the-form-from-submitting">Stop the form from submitting</h3>
-<p>How would you normally stop a form from submitting? </p>
+<p>How would you normally stop a form from submitting?</p>
 <p>You listen to for the <code>submit</code> event and call <code>preventDefault</code> on the event!</p>
 <p>So, we will modify our form tag: <code>&lt;form onSubmit={this.handleSubmit}&gt;</code></p>
 <p>and then create the <code>handleSubmit</code> method on our Search component:</p>
@@ -32,35 +32,35 @@
   e.preventDefault();
   // 2. Get the value of the input
   // 3. redirect them to `/search/whatever-they-searched-
-},
+}
 </code></pre>
 <h3 id="get-the-value-of-the-input">Get the value of the input</h3>
-<p>This is where the <code>ref={(q) =&gt; this.q = q}</code> comes in handy. Because we put a ref on the input, we can easily <em>reference</em> that input element with <code>this.q</code>. </p>
+<p>This is where the <code>ref={(q) =&gt; this.q = q}</code> comes in handy. Because we put a ref on the input, we can easily <em>reference</em> that input element with <code>this.q</code>.</p>
 <p>So to get the value of that input:</p>
 <pre><code class="lang-js">const searchTerm = this.q.value;
 </code></pre>
 <h3 id="redirect-them-to-search-whatever-they-searched-for-">redirect them to <code>/search/whatever-they-searched-for</code></h3>
-<p>The final step is to change the URL. Rather than set the url ourselves, we use one of the methods on the rotuer. In order to access the router we need to expose to the component using something called <code>context</code>. </p>
-<p>Context is a third way in which components can pass down data from the parent to the child. Since the Router is our top level component, we can access it many levels deeper, but only if we define the context. </p>
+<p>The final step is to change the URL. Rather than set the url ourselves, we use one of the methods on the router. In order to access the router we need to expose to the component using something called <code>context</code>.</p>
+<p>Context is a third way in which components can pass down data from the parent to the child. Since the Router is our top level component, we can access it many levels deeper, but only if we define the context.</p>
 <p>First, add this to your Search component:</p>
-<pre><code class="lang-js">contextTypes: {
+<pre><code class="lang-js">static contextTypes = {
   router: React.PropTypes.object.isRequired
 }
 </code></pre>
-<p>And then use it&#39;s <code>transitionTo</code> method to update the browser&#39;s URL:</p>
-<pre><code class="lang-js">this.context.router.push(`/search/${searchTerm}`);
+<p>And then use it&#39;s <code>push</code> method to update the browser&#39;s URL:</p>
+<pre><code class="lang-js">this.context.router.history.push(`/search/${searchTerm}`);
 </code></pre>
 <h2 id="updating-our-component">Updating our Component</h2>
-<p>Now when you search for something like <code>angry</code>, you should see the URL bar update, but our component doesn&#39;t yet know how to perform the search. </p>
+<p>Now when you search for something like <code>angry</code>, you should see the URL bar update, but our component doesn&#39;t yet know how to perform the search.</p>
 <p>Where does the searching for beers happen? In our <code>Main.js</code> file with the <code>loadBeers()</code> method!</p>
-<p>So the question is, how do we re-run the <code>loadBeers()</code> method? </p>
+<p>So the question is, how do we re-run the <code>loadBeers()</code> method?</p>
 <p>We need to modify our componetWillMount() to first check if we have a param in the URL.</p>
 <pre><code class="lang-js">componentWillMount() {
     console.log(`mounting`);
     const params = this.props.match.params || {};
     const searchTerm = params.searchTerm || undefined;
     this.loadBeers(searchTerm);
-},
+}
 </code></pre>
 <p>And with that in place, when someone goes to <code>/search/angry</code>. The <code>&lt;Main/&gt;</code> <code>componentWillMount()</code></p>
 <ol>
@@ -71,7 +71,7 @@
 </ol>
 <h2 id="-main-main-router-bug-feature"><code>&lt;Main /&gt;</code> → <code>&lt;Main /&gt;</code> Router Bug / Feature</h2>
 <p>One bug (feature?!) that React Router 4 currently has is that it does not trigger a re-render of our <code>&lt;Main /&gt;</code> component when you search from a page a search page.  </p>
-<p>What? </p>
+<p>What?</p>
 <p>If we are on a page where the URL is <code>http://localhost:3000/search/angry</code></p>
 <p>And then search for <code>happy</code> which changes the url to <code>http://localhost:3000/search/happy</code></p>
 <p>This does trigger a route change, but since this is our route:</p>
@@ -80,7 +80,7 @@
 <pre><code class="lang-js">componentWillReceiveProps(nextProps) {
   console.log(&#39;Will receive props!&#39;);
   this.loadBeers(nextProps.match.params.searchTerm);
-},
+}
 </code></pre>
   </section>
 <style>

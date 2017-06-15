@@ -1,6 +1,6 @@
 ## Caching Beers in LocalStorage
 
-You may notice that everytime we go back to the main page we need to re-load all the beers with our Ajax endpoint - and this is pretty slow. 
+You may notice that everytime we go back to the main page we need to re-load all the beers with our Ajax endpoint - and this is pretty slow.
 
 We can store the beer data in localStorage and when someone searches for "hops" or "ale", we will first check to see if we have the results in localStorage.
 
@@ -8,8 +8,6 @@ In `Main.js`, above let's update our `loadBeers()` method
 
 ```diff
 loadBeers = (searchTerm = 'hops') => {
-  this.<mark>setState({loading: true});</mark>
-
 +  // Check for beers in local storage
 +  const localStorageBeers = localStorage.getItem(`search-${searchTerm}`);
 +  if (localStorageBeers) {

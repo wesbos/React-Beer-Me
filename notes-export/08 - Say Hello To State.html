@@ -6,13 +6,13 @@
 <body>
   <section class='lesson'>
 <h2 id="say-hello-to-state">Say Hello To State</h2>
-<p>Up until this point, React may just seem like a glorified templating engine. This is the section where you may have an &quot;Ah-Ha!&quot; moment and understand why React shines. </p>
-<p>React components have a concept called <strong>state</strong> where we hold data related to our application. State is the the <em>source of truth</em> for our components and whenever <em>anything</em> in state changes, the application&#39;s DOM will update itself. </p>
-<p>If you are coming from a jQuery background, this is the real power of React. Rather than manually update the DOM ourselves when something happens, we simply just update this big object called <strong>state</strong> and react will figure out which parts of the DOM need to be updated! </p>
+<p>Up until this point, React may just seem like a glorified templating engine. This is the section where you may have an &quot;Ah-Ha!&quot; moment and understand why React shines.</p>
+<p>React components have a concept called <strong>state</strong> where we hold data related to our application. State is the the <em>source of truth</em> for our components and whenever <em>anything</em> in state changes, the application&#39;s DOM will update itself.</p>
+<p>If you are coming from a jQuery background, this is the real power of React. Rather than manually update the DOM ourselves when something happens, we simply just update this big object called <strong>state</strong> and react will figure out which parts of the DOM need to be updated!</p>
 <p>We will use state to hold a list of beers, but before we even do that, let&#39;s do a simple example together.</p>
 <p>We&#39;re going to make a simple beer counter - a button, that when clicked, will increment the number of beers you need to buy for a party. Essentially just a button that will increment every time you click it. Very simple, but will illustrate a few core concepts that we will use for this application.</p>
 <h3 id="step-1-set-initial-state">Step 1: Set Initial State</h3>
-<p>When a component mounts, we need what is called the initial state — what the data will start with. We can update this state or load in external data in just a second, but for now we need to declare the very first state. </p>
+<p>When a component mounts, we need what is called the initial state — what the data will start with. We can update this state or load in external data in just a second, but for now we need to declare the very first state.</p>
 <p>This is done by setting state in the classes constructor. The class constructor is a method that will run as the class is created. We can set our state in here.</p>
 <p>Let&#39;s start with 10 beer:</p>
 <pre><code class="lang-js">constructor() {
@@ -26,7 +26,7 @@
 <p>Right below the <code>&lt;Header...</code> component, create a button:</p>
 <pre><code class="lang-html">&lt;button&gt;{this.state.numBeers} 🍺&lt;/button&gt;
 </code></pre>
-<p>See how we used <code>{this.state.numBeers}</code>? Refresh your page and you should see </p>
+<p>See how we used <code>{this.state.numBeers}</code>? Refresh your page and you should see</p>
 <p><img src="http://wes.io/fdFt/content" alt=""></p>
 <h3 id="step-3-create-a-method-to-update-that-number">Step 3: Create a method to update that number</h3>
 <p>Along with the built in methods like <code>render</code>, we can create our own methods that will handle the updating of state. We will create a method on Main called <code>incrementBeers</code>. Note how we set the instance property with the new syntax of <code>incrementBeers = () =&gt; {</code>. This allows us to reference <code>this</code> inside the method and have <code>this</code> be equal to that instance of the react component. A regular method will not be bound to the React component unless you explicitly bind it in the constructor.</p>
@@ -35,19 +35,19 @@
     const beerAmount = this.state.numBeers + 1;
     // set state to that amount
     this.setState({numBeers : beerAmount });
-  },
+  }
 </code></pre>
-<p>Now whenever that method is run, state will be incremented by one. Notice how we are explicitly setting state here and not just <code>this.state.numBeers++</code>. </p>
+<p>Now whenever that method is run, state will be incremented by one. Notice how we are explicitly setting state here and not just <code>this.state.numBeers++</code>.</p>
 <h3 id="step-4-hook-up-that-method-to-the-button">Step 4: Hook up that method to the button</h3>
-<p>Finally, the way we handle clicks and other events in React is through the <code>onClick</code> event handler. React has re-implemented all of JavaScripts inline events so they may seem familiar. </p>
+<p>Finally, the way we handle clicks and other events in React is through the <code>onClick</code> event handler. React has re-implemented all of JavaScripts inline events so they may seem familiar.</p>
 <pre><code class="lang-html">&lt;button onClick={this.incrementBeers}&gt;{this.state.numBeers} 🍺&lt;/button&gt;
 </code></pre>
 <h3 id="step-5-click-away">Step 5: Click away</h3>
-<p>Go ahead and click that button a few times. When you click it, it triggers <code>incrementBeers</code>, which will update state. When state is updated, React knows we are referencing <code>{this.state.numBeers}</code> and will update our button for us. </p>
-<p>That there is the key to understanding how react works. You update your data, not your DOM/HTML. </p>
+<p>Go ahead and click that button a few times. When you click it, it triggers <code>incrementBeers</code>, which will update state. When state is updated, React knows we are referencing <code>{this.state.numBeers}</code> and will update our button for us.</p>
+<p>That there is the key to understanding how react works. You update your data, not your DOM/HTML.</p>
 <!-- New Doc -->
 <h2 id="updating-state-with-ajax">Updating State with Ajax</h2>
-<p>Now it&#39;s time to pull in a list of beers from our Beer API. </p>
+<p>Now it&#39;s time to pull in a list of beers from our Beer API.</p>
 <h3 id="step-1-initial-state">Step 1: Initial State</h3>
 <p>We start by applying an empty array of beers to the initial state. Our <code>constructor</code> should now look like this:</p>
 <pre><code class="lang-js">constructor() {
@@ -60,8 +60,8 @@
 </code></pre>
 <h3 id="step-2-fetch-json">Step 2: Fetch JSON</h3>
 <p>The endpoint we are going to hit is <a href="http://api.react.beer/v2/search?q=hops&amp;type=beer">http://api.react.beer/v2/search?q=hops&amp;type=beer</a></p>
-<p>Where the <code>q</code> param will either be <code>hops</code> by default, or something inputted by the user. Since the listing of beers will be attached to the Main component, we can create a new method called <code>loadBeers()</code> on that component. </p>
-<p>We will be using the new browser api <code>fetch()</code> to go and grab this data. It works very similar to jquery&#39;s <code>$.getJSON()</code>. </p>
+<p>Where the <code>q</code> param will either be <code>hops</code> by default, or something inputted by the user. Since the listing of beers will be attached to the Main component, we can create a new method called <code>loadBeers()</code> on that component.</p>
+<p>We will be using the new browser api <code>fetch()</code> to go and grab this data. It works very similar to jquery&#39;s <code>$.getJSON()</code>.</p>
 <p>Again, try not to copy/paste but rather let&#39;s work through the following code ourselves:</p>
 <pre><code class="lang-js">loadBeers = (searchTerm = &#39;hops&#39;) =&gt; {
   fetch(`http://api.react.beer/v2/search?q=${searchTerm}&amp;type=beer`)
@@ -73,22 +73,22 @@
     this.setState({ beers: filteredBeers });
   })
   .catch(err =&gt; console.error(err));
-},
+}
 </code></pre>
 <h3 id="step-3-trigger-on-load">Step 3: Trigger on load</h3>
 <p>We need to trigger this <code>fetchBeers()</code> method on load. For this, we will use another one of React&#39;s lifecycle methods called <code>componentWillMount()</code> :</p>
 <pre><code class="lang-js">componentWillMount() {
   this.loadBeers();
-},
+}
 </code></pre>
 <p>Refresh the page and the Ajax request should trigger. If all went well you should see a list of beers in your component&#39;s state:</p>
 <p><img src="http://wes.io/fdR6/content" alt=""></p>
 <h2 id="displaying-state-with-jsx">Displaying State with JSX</h2>
-<p>Now we have data in our state how do we display it? </p>
-<p>We would like to display the results in <code>Results.js</code>, but we fetched the beer in <code>Main.js</code>. </p>
-<p><strong>How do we get data from one component to another?</strong> </p>
+<p>Now we have data in our state how do we display it?</p>
+<p>We would like to display the results in <code>Results.js</code>, but we fetched the beer in <code>Main.js</code>.</p>
+<p><strong>How do we get data from one component to another?</strong></p>
 <p>We pass it via props.</p>
-<p>First, we need to display the <code>&lt;Results/&gt;</code> component. We don&#39;t always want to show the results component, just on the home page and the search page. </p>
+<p>First, we need to display the <code>&lt;Results/&gt;</code> component. We don&#39;t always want to show the results component, just on the home page and the search page.</p>
 <p>Now, normally we would just render the component like this:</p>
 <pre><code class="lang-html">&lt;Results {...this.state} /&gt;
 </code></pre>
@@ -100,7 +100,7 @@
 </ol>
 <pre><code class="lang-html">    &lt;Results beers={this.state.beers} /&gt;
 </code></pre>
-<p>If you look at the Results component in React dev tools, you&#39;ll see that the beers are available under props. Search for a <code>&lt;Results /&gt;</code> component in dev tools and you&#39;ll see </p>
+<p>If you look at the Results component in React dev tools, you&#39;ll see that the beers are available under props. Search for a <code>&lt;Results /&gt;</code> component in dev tools and you&#39;ll see</p>
 <p><img src="http://wes.io/hkVG/content" alt=""></p>
 <p><strong>Why props?</strong> When something is passed down from a parent (<code>&lt;Main/&gt;</code>) to a Child (<code>&lt;Results/&gt;</code>), it is passed down via props. So we surface it via <code>this.props.beers</code> inside the component that receives it.</p>
 <p>In <code>Results.js</code>, let&#39;s see what we are dealing with. Dump your beers with this:</p>
@@ -112,7 +112,7 @@
 <p>First import the Beer component that will be used to display each of the listed beers:</p>
 <pre><code class="lang-js">import Beer from &#39;./Beer&#39;
 </code></pre>
-<p>Then we loop over each beer and return a beer component. </p>
+<p>Then we loop over each beer and return a beer component.</p>
 <pre><code class="lang-html">&lt;div className=&quot;beers&quot;&gt;
   {this.props.beers.map(details =&gt; &lt;Beer details={details} key={details.id}/&gt;)}
 &lt;/div&gt;

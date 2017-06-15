@@ -6,14 +6,14 @@
 <body>
   <section class='lesson'>
 <h2 id="introducing-a-loading-state">Introducing a loading State</h2>
-<p>A common task in applications is to show a loading indicator. We can use use a boolean stored on the state of <code>&lt;Main/&gt;</code>. </p>
+<p>A common task in applications is to show a loading indicator. We can use use a boolean stored on the state of <code>&lt;Main/&gt;</code>.</p>
 <pre><code class="lang-diff">constructor() {
   this.state = {
     numBeers : 10,
     beers: [],
 +    loading: true
   }
-},
+}
 </code></pre>
 <p>Then update our state inside the <code>loadBeers</code> method:</p>
 <pre><code class="lang-diff">loadBeers = (searchTerm = &#39;hops&#39;) =&gt; {
@@ -37,7 +37,7 @@
     localStorage.setItem(`search-${searchTerm}`, JSON.stringify(this.state.beers));
   })
   .catch(err =&gt; console.error(err));
-},
+}
 </code></pre>
 <p>Now in <code>Results.js</code> we can first check if the results are loading and display the <code>&lt;Loader/&gt;</code> accordingly:</p>
 <p>Require it:</p>

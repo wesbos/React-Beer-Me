@@ -1,6 +1,6 @@
 ## Introducing a loading State
 
-A common task in applications is to show a loading indicator. We can use use a boolean stored on the state of `<Main/>`. 
+A common task in applications is to show a loading indicator. We can use use a boolean stored on the state of `<Main/>`.
 
 ```diff
 constructor() {
@@ -9,7 +9,7 @@ constructor() {
     beers: [],
 +    loading: true
   }
-},
+}
 ```
 
 Then update our state inside the `loadBeers` method:
@@ -36,7 +36,7 @@ loadBeers = (searchTerm = 'hops') => {
     localStorage.setItem(`search-${searchTerm}`, JSON.stringify(this.state.beers));
   })
   .catch(err => console.error(err));
-},
+}
 
 ```
 
