@@ -1,10 +1,11 @@
 import React from 'react';
 import slug from 'slugify';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 class Beer extends React.Component {
   static propTypes = {
-    details: React.PropTypes.object.isRequired
+    details: PropTypes.object.isRequired
   }
 
   render() {

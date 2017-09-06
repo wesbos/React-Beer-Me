@@ -44,7 +44,7 @@
 <p>Context is a third way in which components can pass down data from the parent to the child. Since the Router is our top level component, we can access it many levels deeper, but only if we define the context.</p>
 <p>First, add this to your Search component:</p>
 <pre><code class="lang-js">static contextTypes = {
-  router: React.PropTypes.object.isRequired
+  router: PropTypes.object.isRequired
 }
 </code></pre>
 <p>And then use it&#39;s <code>push</code> method to update the browser&#39;s URL:</p>

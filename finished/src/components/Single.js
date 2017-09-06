@@ -1,6 +1,7 @@
 import React from 'react';
 import Loader from './Loader';
 import Header from './Header';
+import PropTypes from 'prop-types';
 
 class Single extends React.Component {
   constructor() {
@@ -9,7 +10,7 @@ class Single extends React.Component {
   }
 
   static propTypes = {
-    params: React.PropTypes.object
+    params: PropTypes.object
   }
 
   componentWillMount() {

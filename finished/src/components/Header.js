@@ -1,9 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 class Header extends React.Component {
   static propTypes = {
-    siteName: React.PropTypes.string
+    siteName: PropTypes.string
   }
 
   render() {

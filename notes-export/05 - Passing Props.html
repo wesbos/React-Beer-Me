@@ -52,11 +52,17 @@
 };
 </code></pre><p><code>siteName</code>!</p>
 <p>And what type is it? A String!</p>
-<p>So, we can add propTypes to our component:</p>
+<p>First we need to import <code>PropTypes</code> from the <code>prop-types</code> package. </p>
+<pre><code>import PropTypes from &#39;prop-types&#39;
+// you can also import just the items you need:
+import { string, number } from &#39;prop-types&#39;;
+// you may also see an older style React.PropTypes. This is deprecated
+import { PropTypes } from &#39;react&#39;;
+</code></pre><p>So, we can add propTypes to our component:</p>
 <pre><code>class Header extends React.Component {
 
   static propTypes = {
-    siteName: React.PropTypes.string.isRequired
+    siteName: PropTypes.string.isRequired
   }
 
   render() {

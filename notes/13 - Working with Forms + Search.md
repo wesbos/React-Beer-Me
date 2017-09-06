@@ -61,7 +61,7 @@ First, add this to your Search component:
 
 ```js
 static contextTypes = {
-  router: React.PropTypes.object.isRequired
+  router: PropTypes.object.isRequired
 }
 ```
 

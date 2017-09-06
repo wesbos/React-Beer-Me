@@ -32,11 +32,12 @@ class Main extends React.Component {
 
     // Check for beers in local storage
     const localStorageBeers = localStorage.getItem(`search-${searchTerm}`);
-    // if (localStorageBeers) {
-    //   const localBeers = JSON.parse(localStorageBeers);
-    //   this.setState({ beers: localBeers, loading: false });
-    //   return; // stop before fetch happens!
-    // }
+
+    if (localStorageBeers) {
+      const localBeers = JSON.parse(localStorageBeers);
+      this.setState({ beers: localBeers, loading: false });
+      return; // stop before fetch happens!
+    }
 
     fetch(`http://api.react.beer/v2/search?q=${searchTerm}&type=beer`)
     .then(data => data.json())

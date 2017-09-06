@@ -1,11 +1,12 @@
 import React from 'react';
 import Beer from './Beer';
 import Loader from './Loader';
+import PropTypes from 'prop-types';
 
 class Results extends React.Component {
   static propTypes = {
-    loading: React.PropTypes.bool.isRequired,
-    beers: React.PropTypes.array.isRequired
+    loading: PropTypes.bool.isRequired,
+    beers: PropTypes.array.isRequired
   }
 
   render() {

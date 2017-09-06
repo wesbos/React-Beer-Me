@@ -84,13 +84,24 @@ class Header extends React.Component {
 
 And what type is it? A String!
 
+First we need to import `PropTypes` from the `prop-types` package. 
+
+```
+import PropTypes from 'prop-types'
+// you can also import just the items you need:
+import { string, number } from 'prop-types';
+// you may also see an older style React.PropTypes. This is deprecated
+import { PropTypes } from 'react';
+```
+
+
 So, we can add propTypes to our component:
 
 ```
 class Header extends React.Component {
   
   static propTypes = {
-    siteName: React.PropTypes.string.isRequired
+    siteName: PropTypes.string.isRequired
   }
 
   render() {
