@@ -31,6 +31,13 @@
   &lt;p&gt;Beer Description goes here&lt;/p&gt;
 &lt;/div&gt;
 </code></pre>
+<p>One major downside to this is that it interferes with CSS where the parent-child relationship is important. Extra divs can really goof up your Flexbox or CSS Grid code.</p>
+<p>As of React 16.2, we are now able to use something called Fragments which won&#39;t render out a containing div:</p>
+<pre><code class="lang-js">&lt;&gt;
+  &lt;h3&gt;Beer Name&lt;/h3&gt;
+  &lt;p&gt;Beer Description goes here&lt;/p&gt;
+&lt;/&gt;
+</code></pre>
 <h3 id="comments">Comments</h3>
 <p>Comments are a little weird in JSX, since we are <em>technically</em> writing JavaScript, we need to use JavaScript comments, but inside JSX curly braces.</p>
 <p>So a comment in JSX looks like</p>
@@ -48,13 +55,13 @@
 &lt;/div&gt;
 </code></pre>
 <h3 id="classname-instead-of-class">className instead of class</h3>
-<p>Because <code>class</code> is a reserved word in JavaScript, you must use className instead. </p>
+<p>Because <code>class</code> is a reserved word in JavaScript, you must use className instead.</p>
 <pre><code class="lang-html">&lt;p class=&quot;cool&quot;&gt;Hello&lt;/p&gt;
 </code></pre>
 <p>is now</p>
 <pre><code class="lang-html">&lt;p className=&quot;cool&quot;&gt;Hello&lt;/p&gt;
 </code></pre>
-<p>If you use Emmet, your expansions will be automatically updated for you. </p>
+<p>If you use Emmet, your expansions will be automatically updated for you.</p>
   </section>
 <style>
     .note {

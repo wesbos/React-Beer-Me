@@ -30,12 +30,12 @@
 <p><img src="http://wes.io/fdFt/content" alt=""></p>
 <h3 id="step-3-create-a-method-to-update-that-number">Step 3: Create a method to update that number</h3>
 <p>Along with the built in methods like <code>render</code>, we can create our own methods that will handle the updating of state. We will create a method on Main called <code>incrementBeers</code>. Note how we set the instance property with the new syntax of <code>incrementBeers = () =&gt; {</code>. This allows us to reference <code>this</code> inside the method and have <code>this</code> be equal to that instance of the react component. A regular method will not be bound to the React component unless you explicitly bind it in the constructor.</p>
-<pre><code class="lang-js">  incrementBeers = () =&gt; {
-    // create a new upated state variable
-    const beerAmount = this.state.numBeers + 1;
-    // set state to that amount
-    this.setState({numBeers : beerAmount });
-  }
+<pre><code class="lang-js">incrementBeers = () =&gt; {
+  // create a new upated state variable
+  const beerAmount = this.state.numBeers + 1;
+  // set state to that amount
+  this.setState({ numBeers: beerAmount });
+};
 </code></pre>
 <p>Now whenever that method is run, state will be incremented by one. Notice how we are explicitly setting state here and not just <code>this.state.numBeers++</code>.</p>
 <h3 id="step-4-hook-up-that-method-to-the-button">Step 4: Hook up that method to the button</h3>
@@ -58,26 +58,37 @@
       }
 }
 </code></pre>
+<p>Note: We can also specify state directly on our component now. This is exactly the same as the above with a bit of a cleaner syntax:</p>
+<pre><code class="lang-js">class Wes extends React.Components {
+  state = {
+    name: &quot;Wes&quot;
+  };
+
+  render() {
+    return &lt;h1&gt;Hello my name is {this.state.name}&lt;/h1&gt;;
+  }
+}
+</code></pre>
 <h3 id="step-2-fetch-json">Step 2: Fetch JSON</h3>
 <p>The endpoint we are going to hit is <a href="http://api.react.beer/v2/search?q=hops&amp;type=beer">http://api.react.beer/v2/search?q=hops&amp;type=beer</a></p>
 <p>Where the <code>q</code> param will either be <code>hops</code> by default, or something inputted by the user. Since the listing of beers will be attached to the Main component, we can create a new method called <code>loadBeers()</code> on that component.</p>
 <p>We will be using the new browser api <code>fetch()</code> to go and grab this data. It works very similar to jquery&#39;s <code>$.getJSON()</code>.</p>
 <p>Again, try not to copy/paste but rather let&#39;s work through the following code ourselves:</p>
-<pre><code class="lang-js">loadBeers = (searchTerm = &#39;hops&#39;) =&gt; {
+<pre><code class="lang-js">loadBeers = (searchTerm = &quot;hops&quot;) =&gt; {
   fetch(`http://api.react.beer/v2/search?q=${searchTerm}&amp;type=beer`)
-  .then(data =&gt; data.json())
-  .then((beers) =&gt; {
-    console.log(beers);
-    // filter for beers with images
-    const filteredBeers = beers.data.filter(beer =&gt; !!beer.labels);
-    this.setState({ beers: filteredBeers });
-  })
-  .catch(err =&gt; console.error(err));
-}
+    .then(data =&gt; data.json())
+    .then(beers =&gt; {
+      console.log(beers);
+      // filter for beers with images
+      const filteredBeers = beers.data.filter(beer =&gt; !!beer.labels);
+      this.setState({ beers: filteredBeers });
+    })
+    .catch(err =&gt; console.error(err));
+};
 </code></pre>
 <h3 id="step-3-trigger-on-load">Step 3: Trigger on load</h3>
-<p>We need to trigger this <code>fetchBeers()</code> method on load. For this, we will use another one of React&#39;s lifecycle methods called <code>componentWillMount()</code> :</p>
-<pre><code class="lang-js">componentWillMount() {
+<p>We need to trigger this <code>fetchBeers()</code> method on load. For this, we will use another one of React&#39;s lifecycle methods called <code>componentDidMount()</code> :</p>
+<pre><code class="lang-js">componentDidMount() {
   this.loadBeers();
 }
 </code></pre>
@@ -95,7 +106,7 @@
 <p><strong>A few things to note here: </strong></p>
 <ol>
 <li><code>&lt;Results /&gt;</code> is our results component that we make</li>
-<li><code>{...this.state}</code> take our entire state from <code>&lt;Main /&gt;</code> and passes it down to <code>&lt;Results/&gt;</code>. This is called an Object Spread and is used quite a bit in React.  </li>
+<li><code>{...this.state}</code> take our entire state from <code>&lt;Main /&gt;</code> and passes it down to <code>&lt;Results/&gt;</code>. This is called an Object Spread and is used quite a bit in React.</li>
 <li>It&#39;s important to note that it&#39;s not ideal to pass everything down to children <em>unless you need it</em>. If you would like to cherry pick pieces of state, we could pass them down like so:</li>
 </ol>
 <pre><code class="lang-html">    &lt;Results beers={this.state.beers} /&gt;
@@ -106,11 +117,11 @@
 <p>In <code>Results.js</code>, let&#39;s see what we are dealing with. Dump your beers with this:</p>
 <pre><code class="lang-html">&lt;pre&gt;{JSON.stringify(this.props.beers,null,&#39;  &#39;)}&lt;/pre&gt;
 </code></pre>
-<p>We can see the data, but we need to loop over all the results and then display them.  Remember this image?</p>
+<p>We can see the data, but we need to loop over all the results and then display them. Remember this image?</p>
 <p><img src="http://wes.io/fcCO/content" alt=""></p>
 <p>JSX does not have any logic to handle the looping over the beers - we need to use a JavaScript map to loop over each one and return yet another component — <code>&lt;Beer /&gt;</code> for each.</p>
 <p>First import the Beer component that will be used to display each of the listed beers:</p>
-<pre><code class="lang-js">import Beer from &#39;./Beer&#39;
+<pre><code class="lang-js">import Beer from &quot;./Beer&quot;;
 </code></pre>
 <p>Then we loop over each beer and return a beer component.</p>
 <pre><code class="lang-html">&lt;div className=&quot;beers&quot;&gt;

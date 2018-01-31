@@ -27,12 +27,12 @@
 <p>You listen to for the <code>submit</code> event and call <code>preventDefault</code> on the event!</p>
 <p>So, we will modify our form tag: <code>&lt;form onSubmit={this.handleSubmit}&gt;</code></p>
 <p>and then create the <code>handleSubmit</code> method on our Search component:</p>
-<pre><code class="lang-js">handleSubmit = (e) =&gt; {
+<pre><code class="lang-js">handleSubmit = e =&gt; {
   // 1. Stop the form from submitting
   e.preventDefault();
   // 2. Get the value of the input
   // 3. redirect them to `/search/whatever-they-searched-
-}
+};
 </code></pre>
 <h3 id="get-the-value-of-the-input">Get the value of the input</h3>
 <p>This is where the <code>ref={(q) =&gt; this.q = q}</code> comes in handy. Because we put a ref on the input, we can easily <em>reference</em> that input element with <code>this.q</code>.</p>
@@ -54,15 +54,15 @@
 <p>Now when you search for something like <code>angry</code>, you should see the URL bar update, but our component doesn&#39;t yet know how to perform the search.</p>
 <p>Where does the searching for beers happen? In our <code>Main.js</code> file with the <code>loadBeers()</code> method!</p>
 <p>So the question is, how do we re-run the <code>loadBeers()</code> method?</p>
-<p>We need to modify our componetWillMount() to first check if we have a param in the URL.</p>
-<pre><code class="lang-js">componentWillMount() {
+<p>We need to modify our componentDidMount() to first check if we have a param in the URL.</p>
+<pre><code class="lang-js">componentDidMount() {
     console.log(`mounting`);
     const params = this.props.match.params || {};
     const searchTerm = params.searchTerm || undefined;
     this.loadBeers(searchTerm);
 }
 </code></pre>
-<p>And with that in place, when someone goes to <code>/search/angry</code>. The <code>&lt;Main/&gt;</code> <code>componentWillMount()</code></p>
+<p>And with that in place, when someone goes to <code>/search/angry</code>. The <code>&lt;Main/&gt;</code> <code>componentDidMount()</code></p>
 <ol>
 <li>Ajax request</li>
 <li>the loader component will show</li>
@@ -70,7 +70,7 @@
 <li>the new beers will be displayed</li>
 </ol>
 <h2 id="-main-main-router-bug-feature"><code>&lt;Main /&gt;</code> → <code>&lt;Main /&gt;</code> Router Bug / Feature</h2>
-<p>One bug (feature?!) that React Router 4 currently has is that it does not trigger a re-render of our <code>&lt;Main /&gt;</code> component when you search from a page a search page.  </p>
+<p>One bug (feature?!) that React Router 4 currently has is that it does not trigger a re-render of our <code>&lt;Main /&gt;</code> component when you search from a page a search page.</p>
 <p>What?</p>
 <p>If we are on a page where the URL is <code>http://localhost:3000/search/angry</code></p>
 <p>And then search for <code>happy</code> which changes the url to <code>http://localhost:3000/search/happy</code></p>
