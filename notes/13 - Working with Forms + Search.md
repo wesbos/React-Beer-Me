@@ -22,6 +22,7 @@ When someone submits that form, we need to:
 Let's take these three things and tackle them step by step:
 
 ### Stop the form from submitting
+
 How would you normally stop a form from submitting?
 
 You listen to for the `submit` event and call `preventDefault` on the event!
@@ -31,15 +32,13 @@ So, we will modify our form tag: `<form onSubmit={this.handleSubmit}>`
 and then create the `handleSubmit` method on our Search component:
 
 ```js
-handleSubmit = (e) => {
+handleSubmit = e => {
   // 1. Stop the form from submitting
   e.preventDefault();
   // 2. Get the value of the input
   // 3. redirect them to `/search/whatever-they-searched-
-}
-
+};
 ```
-
 
 ### Get the value of the input
 
@@ -71,7 +70,6 @@ And then use it's `push` method to update the browser's URL:
 this.context.router.history.push(`/search/${searchTerm}`);
 ```
 
-
 ## Updating our Component
 
 Now when you search for something like `angry`, you should see the URL bar update, but our component doesn't yet know how to perform the search.
@@ -80,10 +78,10 @@ Where does the searching for beers happen? In our `Main.js` file with the `loadB
 
 So the question is, how do we re-run the `loadBeers()` method?
 
-We need to modify our componetWillMount() to first check if we have a param in the URL.
+We need to modify our componentDidMount() to first check if we have a param in the URL.
 
 ```js
-componentWillMount() {
+componentDidMount() {
 	console.log(`mounting`);
 	const params = this.props.match.params || {};
 	const searchTerm = params.searchTerm || undefined;
@@ -91,17 +89,16 @@ componentWillMount() {
 }
 ```
 
-And with that in place, when someone goes to `/search/angry`. The `<Main/>` `componentWillMount()`
+And with that in place, when someone goes to `/search/angry`. The `<Main/>` `componentDidMount()`
 
 1. Ajax request
 2. the loader component will show
 3. the state will be updated
 4. the new beers will be displayed
 
-
 ## `<Main />` → `<Main />` Router Bug / Feature
 
-One bug (feature?!) that React Router 4 currently has is that it does not trigger a re-render of our `<Main />` component when you search from a page a search page.  
+One bug (feature?!) that React Router 4 currently has is that it does not trigger a re-render of our `<Main />` component when you search from a page a search page.
 
 What?
 

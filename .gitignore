@@ -3,3 +3,4 @@ node_modules/
 beer-me/
 beer/
 *.zip
+.DS_Store

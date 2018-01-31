@@ -1,7 +1,7 @@
-import React from 'react';
-import Loader from './Loader';
-import Header from './Header';
-import PropTypes from 'prop-types';
+import React from "react";
+import Loader from "./Loader";
+import Header from "./Header";
+import PropTypes from "prop-types";
 
 class Single extends React.Component {
   constructor() {
@@ -11,14 +11,14 @@ class Single extends React.Component {
 
   static propTypes = {
     params: PropTypes.object
-  }
+  };
 
-  componentWillMount() {
+  componentDidMount() {
     console.log(`searching for ${this.props.match.params.beerId}`);
     this.loadBeer(this.props.match.params.beerId);
   }
 
-  loadBeer = (beerId) => {
+  loadBeer = beerId => {
     console.log(`Loading beer ${beerId}`);
     this.setState({ loading: true });
     fetch(`http://api.react.beer/v2/beer/${beerId}`)
@@ -26,9 +26,9 @@ class Single extends React.Component {
       .then(res => {
         this.setState({ beer: res.data, loading: false });
       });
-  }
+  };
 
-  renderGlass = (beer) => {
+  renderGlass = beer => {
     if (!beer.glass) return;
     return (
       <div className="glass">
@@ -36,14 +36,12 @@ class Single extends React.Component {
         <h3>{beer.glass.name} Glass</h3>
       </div>
     );
-  }
+  };
 
-  renderAbv = (beer) => {
+  renderAbv = beer => {
     if (!beer.abv) return;
-    return (
-      <div className="abv">ABV: {beer.abv}%</div>
-    );
-  }
+    return <div className="abv">ABV: {beer.abv}%</div>;
+  };
 
   render() {
     if (this.state.loading) {
@@ -76,6 +74,6 @@ class Single extends React.Component {
       </div>
     );
   }
-};
+}
 
 export default Single;

@@ -11,6 +11,7 @@ We will use state to hold a list of beers, but before we even do that, let's do 
 We're going to make a simple beer counter - a button, that when clicked, will increment the number of beers you need to buy for a party. Essentially just a button that will increment every time you click it. Very simple, but will illustrate a few core concepts that we will use for this application.
 
 ### Step 1: Set Initial State
+
 When a component mounts, we need what is called the initial state — what the data will start with. We can update this state or load in external data in just a second, but for now we need to declare the very first state.
 
 This is done by setting state in the classes constructor. The class constructor is a method that will run as the class is created. We can set our state in here.
@@ -27,6 +28,7 @@ constructor() {
 ```
 
 ### Step 2: Display The State in JSX
+
 Right below the `<Header...` component, create a button:
 
 ```html
@@ -42,12 +44,12 @@ See how we used `{this.state.numBeers}`? Refresh your page and you should see
 Along with the built in methods like `render`, we can create our own methods that will handle the updating of state. We will create a method on Main called `incrementBeers`. Note how we set the instance property with the new syntax of `incrementBeers = () => {`. This allows us to reference `this` inside the method and have `this` be equal to that instance of the react component. A regular method will not be bound to the React component unless you explicitly bind it in the constructor.
 
 ```js
-  incrementBeers = () => {
-    // create a new upated state variable
-    const beerAmount = this.state.numBeers + 1;
-    // set state to that amount
-    this.setState({numBeers : beerAmount });
-  }
+incrementBeers = () => {
+  // create a new upated state variable
+  const beerAmount = this.state.numBeers + 1;
+  // set state to that amount
+  this.setState({ numBeers: beerAmount });
+};
 ```
 
 Now whenever that method is run, state will be incremented by one. Notice how we are explicitly setting state here and not just `this.state.numBeers++`.
@@ -73,6 +75,7 @@ That there is the key to understanding how react works. You update your data, no
 Now it's time to pull in a list of beers from our Beer API.
 
 ### Step 1: Initial State
+
 We start by applying an empty array of beers to the initial state. Our `constructor` should now look like this:
 
 ```js
@@ -85,7 +88,22 @@ constructor() {
 }
 ```
 
+Note: We can also specify state directly on our component now. This is exactly the same as the above with a bit of a cleaner syntax:
+
+```js
+class Wes extends React.Components {
+  state = {
+    name: "Wes"
+  };
+
+  render() {
+    return <h1>Hello my name is {this.state.name}</h1>;
+  }
+}
+```
+
 ### Step 2: Fetch JSON
+
 The endpoint we are going to hit is <http://api.react.beer/v2/search?q=hops&type=beer>
 
 Where the `q` param will either be `hops` by default, or something inputted by the user. Since the listing of beers will be attached to the Main component, we can create a new method called `loadBeers()` on that component.
@@ -95,25 +113,25 @@ We will be using the new browser api `fetch()` to go and grab this data. It work
 Again, try not to copy/paste but rather let's work through the following code ourselves:
 
 ```js
-loadBeers = (searchTerm = 'hops') => {
+loadBeers = (searchTerm = "hops") => {
   fetch(`http://api.react.beer/v2/search?q=${searchTerm}&type=beer`)
-  .then(data => data.json())
-  .then((beers) => {
-    console.log(beers);
-    // filter for beers with images
-    const filteredBeers = beers.data.filter(beer => !!beer.labels);
-    this.setState({ beers: filteredBeers });
-  })
-  .catch(err => console.error(err));
-}
+    .then(data => data.json())
+    .then(beers => {
+      console.log(beers);
+      // filter for beers with images
+      const filteredBeers = beers.data.filter(beer => !!beer.labels);
+      this.setState({ beers: filteredBeers });
+    })
+    .catch(err => console.error(err));
+};
 ```
 
 ### Step 3: Trigger on load
 
-We need to trigger this `fetchBeers()` method on load. For this, we will use another one of React's lifecycle methods called `componentWillMount()` :
+We need to trigger this `fetchBeers()` method on load. For this, we will use another one of React's lifecycle methods called `componentDidMount()` :
 
 ```js
-componentWillMount() {
+componentDidMount() {
   this.loadBeers();
 }
 ```
@@ -121,7 +139,6 @@ componentWillMount() {
 Refresh the page and the Ajax request should trigger. If all went well you should see a list of beers in your component's state:
 
 ![](http://wes.io/fdR6/content)
-
 
 ## Displaying State with JSX
 
@@ -144,7 +161,7 @@ Now, normally we would just render the component like this:
 **A few things to note here: **
 
 1. `<Results />` is our results component that we make
-2. `{...this.state}` take our entire state from `<Main />` and passes it down to `<Results/>`. This is called an Object Spread and is used quite a bit in React.  
+2. `{...this.state}` take our entire state from `<Main />` and passes it down to `<Results/>`. This is called an Object Spread and is used quite a bit in React.
 3. It's important to note that it's not ideal to pass everything down to children _unless you need it_. If you would like to cherry pick pieces of state, we could pass them down like so:
 
 ```html
@@ -163,7 +180,7 @@ In `Results.js`, let's see what we are dealing with. Dump your beers with this:
 <pre>{JSON.stringify(this.props.beers,null,'  ')}</pre>
 ```
 
-We can see the data, but we need to loop over all the results and then display them.  Remember this image?
+We can see the data, but we need to loop over all the results and then display them. Remember this image?
 
 ![](http://wes.io/fcCO/content)
 
@@ -172,7 +189,7 @@ JSX does not have any logic to handle the looping over the beers - we need to us
 First import the Beer component that will be used to display each of the listed beers:
 
 ```js
-import Beer from './Beer'
+import Beer from "./Beer";
 ```
 
 Then we loop over each beer and return a beer component.

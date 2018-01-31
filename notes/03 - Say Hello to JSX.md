@@ -26,7 +26,7 @@ But self-closing elements like `input` and `img` need to have the closing `/` in
 
 React expects you to only return one element. You can have as many child elements as you wish, but only one top level element.
 
-So, if I needed to return the following HTML. You'll get an error saying ` Adjacent JSX elements must be wrapped in an enclosing tag (8:6)`.
+So, if I needed to return the following HTML. You'll get an error saying `Adjacent JSX elements must be wrapped in an enclosing tag (8:6)`.
 
 ```html
 <h3>Beer Name</h3>
@@ -40,6 +40,17 @@ An easy fix is to wrap it in a div:
   <h3>Beer Name</h3>
   <p>Beer Description goes here</p>
 </div>
+```
+
+One major downside to this is that it interferes with CSS where the parent-child relationship is important. Extra divs can really goof up your Flexbox or CSS Grid code.
+
+As of React 16.2, we are now able to use something called Fragments which won't render out a containing div:
+
+```js
+<>
+  <h3>Beer Name</h3>
+  <p>Beer Description goes here</p>
+</>
 ```
 
 ### Comments
@@ -68,7 +79,7 @@ Another gotcha is that you may not have a comment at the top level, for the same
 
 ### className instead of class
 
-Because `class` is a reserved word in JavaScript, you must use className instead. 
+Because `class` is a reserved word in JavaScript, you must use className instead.
 
 ```html
 <p class="cool">Hello</p>
@@ -80,4 +91,4 @@ is now
 <p className="cool">Hello</p>
 ```
 
-If you use Emmet, your expansions will be automatically updated for you. 
+If you use Emmet, your expansions will be automatically updated for you.
