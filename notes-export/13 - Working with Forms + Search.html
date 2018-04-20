@@ -9,7 +9,7 @@
 <p>The final piece of the puzzle is the search form. Let&#39;s start off by creating the markup for it in <code>Search.js</code></p>
 <pre><code class="lang-html">&lt;div className=&quot;search&quot;&gt;
   &lt;form&gt;
-    &lt;input type=&quot;text&quot; ref={(q) =&gt; this.q = q} placeholder=&quot;Hoppy, Malt, Angry, New...&quot; /&gt;
+    &lt;input type=&quot;text&quot; placeholder=&quot;Hoppy, Malt, Angry, New...&quot; /&gt;
     &lt;input type=&quot;submit&quot; value=&quot;Search&quot;/&gt;
   &lt;/form&gt;
 &lt;/div&gt;
@@ -35,9 +35,24 @@
 };
 </code></pre>
 <h3 id="get-the-value-of-the-input">Get the value of the input</h3>
-<p>This is where the <code>ref={(q) =&gt; this.q = q}</code> comes in handy. Because we put a ref on the input, we can easily <em>reference</em> that input element with <code>this.q</code>.</p>
-<p>So to get the value of that input:</p>
-<pre><code class="lang-js">const searchTerm = this.q.value;
+<p>There are two ways to access values of an input in react:</p>
+<ol>
+<li>Listen for <code>onChange</code> and set that value to state by pulling the value out of the event.target.value. This is what is called a &quot;Controlled Component&quot;</li>
+<li>Attach a ref to the <code>&lt;input/&gt;</code> so you can access the dom node.</li>
+</ol>
+<p>Since we only have 1 input, and only need the value once, we will go with #2.</p>
+<p>To create a ref, we first make one on our component with <code>React.createRef()</code>:</p>
+<pre><code class="lang-js">class Search extends React.Component {
+  // ...
+  searchRef = React.createRef();
+  // ...
+}
+</code></pre>
+<p>Then we assign that ref to a DOM node:</p>
+<pre><code class="lang-html">&lt;input type=&quot;text&quot; ref={this.searchRef} placeholder=&quot;Hoppy, Malt, Angry, New...&quot; /&gt;
+</code></pre>
+<p>Then, to get the value of that input:</p>
+<pre><code class="lang-js">const searchTerm = this.searchRef.current.value;
 </code></pre>
 <h3 id="redirect-them-to-search-whatever-they-searched-for-">redirect them to <code>/search/whatever-they-searched-for</code></h3>
 <p>The final step is to change the URL. Rather than set the url ourselves, we use one of the methods on the router. In order to access the router we need to expose to the component using something called <code>context</code>.</p>
@@ -76,10 +91,15 @@
 <p>And then search for <code>happy</code> which changes the url to <code>http://localhost:3000/search/happy</code></p>
 <p>This does trigger a route change, but since this is our route:</p>
 <p><code>&lt;Route pattern=&quot;/beer/:beerId/:beerSlug&quot; component={Single} /&gt;</code></p>
-<p>The &quot;Single&quot; component is already mounted. So to catch this change, we need another lifecycle method called <code>componentWillReceiveProps</code> which fires not when the component is mounted, but when it&#39;s props are updated. What props get updated? The router params!</p>
-<pre><code class="lang-js">componentWillReceiveProps(nextProps) {
-  console.log(&#39;Will receive props!&#39;);
-  this.loadBeers(nextProps.match.params.searchTerm);
+<p>The &quot;Single&quot; component is already mounted. So to catch this change, we need another lifecycle method called <code>componentDidUpdate</code> which fires not when the component is mounted, but when it&#39;s props or state are updated. It passes up a copy of the old props and old state so we can decide if we need to re-run our search.</p>
+<p>What props get updated? The router params!</p>
+<pre><code class="lang-js">componentDidUpdate(prevProps) {
+  console.log(&#39;did update&#39;);
+  const currentSearchTerm = this.props.match.params.searchTerm;
+  const oldSearchTerm = prevProps.match.params.searchTerm;
+  if (currentSearchTerm !== oldSearchTerm) {
+    this.loadBeers(currentSearchTerm);
+  }
 }
 </code></pre>
   </section>

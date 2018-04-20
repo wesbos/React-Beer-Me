@@ -5,7 +5,7 @@ The final piece of the puzzle is the search form. Let's start off by creating th
 ```html
 <div className="search">
   <form>
-    <input type="text" ref={(q) => this.q = q} placeholder="Hoppy, Malt, Angry, New..." />
+    <input type="text" placeholder="Hoppy, Malt, Angry, New..." />
     <input type="submit" value="Search"/>
   </form>
 </div>
@@ -42,12 +42,33 @@ handleSubmit = e => {
 
 ### Get the value of the input
 
-This is where the `ref={(q) => this.q = q}` comes in handy. Because we put a ref on the input, we can easily _reference_ that input element with `this.q`.
+There are two ways to access values of an input in react:
 
-So to get the value of that input:
+1. Listen for `onChange` and set that value to state by pulling the value out of the event.target.value. This is what is called a "Controlled Component"
+2. Attach a ref to the `<input/>` so you can access the dom node.
+
+Since we only have 1 input, and only need the value once, we will go with #2.
+
+To create a ref, we first make one on our component with `React.createRef()`:
 
 ```js
-const searchTerm = this.q.value;
+class Search extends React.Component {
+  // ...
+  searchRef = React.createRef();
+  // ...
+}
+```
+
+Then we assign that ref to a DOM node:
+
+```html
+<input type="text" ref={this.searchRef} placeholder="Hoppy, Malt, Angry, New..." />
+```
+
+Then, to get the value of that input:
+
+```js
+const searchTerm = this.searchRef.current.value;
 ```
 
 ### redirect them to `/search/whatever-they-searched-for`
@@ -110,11 +131,17 @@ This does trigger a route change, but since this is our route:
 
 `<Route pattern="/beer/:beerId/:beerSlug" component={Single} />`
 
-The "Single" component is already mounted. So to catch this change, we need another lifecycle method called `componentWillReceiveProps` which fires not when the component is mounted, but when it's props are updated. What props get updated? The router params!
+The "Single" component is already mounted. So to catch this change, we need another lifecycle method called `componentDidUpdate` which fires not when the component is mounted, but when it's props or state are updated. It passes up a copy of the old props and old state so we can decide if we need to re-run our search.
+
+What props get updated? The router params!
 
 ```js
-componentWillReceiveProps(nextProps) {
-  console.log('Will receive props!');
-  this.loadBeers(nextProps.match.params.searchTerm);
+componentDidUpdate(prevProps) {
+  console.log('did update');
+  const currentSearchTerm = this.props.match.params.searchTerm;
+  const oldSearchTerm = prevProps.match.params.searchTerm;
+  if (currentSearchTerm !== oldSearchTerm) {
+    this.loadBeers(currentSearchTerm);
+  }
 }
 ```

@@ -20,10 +20,18 @@ class Main extends React.Component {
     this.loadBeers(searchTerm);
   }
 
-  componentWillReceiveProps(nextProps) {
-    console.log("Will receive props!");
-    console.log(nextProps);
-    this.loadBeers(nextProps.match.params.searchTerm);
+  // componentWillReceiveProps(nextProps) {
+  //   console.log("Will receive props!");
+  //   console.log(nextProps);
+  //   this.loadBeers(nextProps.match.params.searchTerm);
+  // }
+  componentDidUpdate(prevProps) {
+    console.log('did update');
+    const currentSearchTerm = this.props.match.params.searchTerm;
+    const oldSearchTerm = prevProps.match.params.searchTerm;
+    if (currentSearchTerm !== oldSearchTerm) {
+      this.loadBeers(currentSearchTerm);
+    }
   }
 
   loadBeers = (searchTerm = "hops") => {
